@@ -1,0 +1,788 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>
+html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
+}
+
+
+
+</style><title>创价猎奇合集151P</title>
+</head>
+<body style=background-image: url(https://iw233.cn/api/Random.php);background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;"'>
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(255, 82, 82)',
+  textColor: '#fff'
+})</script>
+<div class="overlay"><div id='write'  class=''><h1 id='稿件博物馆'><span>稿件博物馆</span></h1><p><span>所谓的“创价学会猎奇合集”P0-P151”</span></p><p><span>注:本页面视频文件均存放于蓝奏云</span></p><p><span>观看教程：下载视频文件后删除文件名称中的“.zip”或在文件名后加上“.mp4”</span></p><p><span>如P1 死了_起源(エア本さんでサンドキャニオン)（sm7191801）.MP4.zip只需下载完文件后删去“.zip”，变成P1 死了_起源(エア本さんでサンドキャニオン)（sm7191801）.MP4即可正常播放</span></p>
+<p><a href='https://wwsj.lanzout.com/ihaxH361ajlg'><span>P1 死了_起源(エア本さんでサンドキャニオン)（sm7191801）.MP4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/ikbIJ361ax1a'><span>P2 较猎奇...久本薯饼（sm9093723）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iaJYW361ay1g'><span>P3 全员猎奇(すばらしきオチョ人生part1）（sm6083191）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iNqqu361az2d'><span>P4 惊悚式猎奇 (オチョ本さんがミテルだけ)（sm7674453）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iqYw2361b11e'><span>P5 轻度精神猎奇[無修正版]（sm14159244）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/i5lhl361b3di'><span>P6 看完让人毛骨悚然の猎奇（カサカサ虫）（sm8240293）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iFAeA361b5sf'><span>P7 看完让人留下阴影的惊悚式猎奇(御本尊コースター).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iSDH5361b6ra'><span>P8 转基因式猎奇(miku葱)(sm16736900).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iMN5Q361b8ch'><span>P9 伪终生难忘的洗脑式猎奇(av8735478).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/i8XOV361ajuf'><span>P10 慎入！sm666式猎奇   惠方卷き(sm9585374).MP4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iY3bt361aljg'><span>P11 哲学♂式猎奇 (ハラハラ)(sm9307581 ).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/i5TSU361ao3i'><span>P12 金属式猎奇(金属hrhr)(sm22029355).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iv62u361arfi'><span>P13 噔噔咚！ 令人心肺停止的猎奇(すばらしきオチョ人生part4).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/io4DS361at9e'><span>P14 高精学会的猎奇(sm8452271).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iJK5p361avhe'><span>P15 刷牙式猎奇(sm14388418).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iDTiG361avsf'><span>P16 幻灯片式猎奇(0721 zone高精版)(sm6577843).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/io5AE361avyb'><span>P17 久本薯条(sm7768440).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/intfe361aw0d'><span>P18 背后灵薯条(sm9111912).MP4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/ii3ne361ax3c'><span>P20 教主的客串(sm9008775).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iuPTx361ax5e'><span>P21 危险の久本 (危険なオチョ本さん)(sm13074970).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/izFxd361ax9i'><span>P22 里世界の久本(sm4758589).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iqvyP361axba'><span>P23 hrhrの鉴赏式猎奇 (sm26050848).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iPajq361axgf'><span>P24 慎入！密集式猎奇(sm29532091).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/i4iOq361axkj'><span>P25 牛的久本虫（a风式猎奇）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iYZtE361axmb'><span>P26 令人反感，无法接受的终极猎奇(sm5066046).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/irFU0361axqf'><span>P27 妖怪人間革命（sm12748626）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iCtZ8361axsh'><span>P28 手绘式猎奇...高精镇(sm27250424).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iMNB4361axyd'><span>P29 让人精神崩溃的幻听式猎奇(av18809743).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iuYfS361ay4j'><span>P30 不安の高等精神病旗帜（sm16758123）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/ivyDI361ay5a'><span>P31 令人猝不及防的猎奇（sm8958608）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iOhbd361ay6b'><span>P32 不安の单人波纹式猎奇（sm8114223）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iwvo9361ay7c'><span>P33 不安的双人波纹式猎奇（sm8111466）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/i2tp9361ayaf'><span>P34 不安の有趣美食比赛猎奇(sm6960319).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iKyPZ361ayoj'><span>P35 失控の有趣美食比赛猎奇 sm31211239.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/icZ7R361aypa'><span>P36 崩壞の美食比赛猎奇（sm8153201）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/i3k1b361ayuf'><span>P37 廃獄ハラハラ（sm18804900）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/igduK361ayxi'><span>P38 hrhr陆行鸟(sm12024468).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/ikduI361az1c'><span>P39 hrhr so happy（sm25573019）.mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iz7Ar361az4f'><span>P40 hrhr zone(sm19465332).mp4.zip</span></a></p>
+
+<p><a href='https://wwsj.lanzout.com/iJFb6361az7i'><span>P41 【東方旧日统治者】孕妇飞翔 （sm13066777）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i4u63361b00h'><span>P42 伪劝诱之日...创价学会的阴暗面(av13728622).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iEIsq361b01i'><span>P43 仓地家的新品种食人鱼(sm16332374).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iufpc361b0he'><span>P44 久本の不安鉴赏（sm10069273）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/imFgy361b0li'><span>P45 里世界の高精.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i4kUi361b0re'><span>P46 某人闲得蛋疼做の猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/if3gV361b0tg'><span>P47 某灵魂P图式猎奇(av2568209).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iMi4T361b0uh'><span>P48 柴田的进化(sm16318743).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/inGEZ361b10d'><span>P49 你得了高等精神病（sm9193932）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ikvZe361b16j'><span>P50 すばらしきオチョ人生 (part2)(sm7872360).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/idK8h361b1be'><span>P51 继武器A之遗志，讨五位数之小鬼——武器B(av2044675).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/icEn9361b1tc'><span>P52 sm666 so happy（av129520）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ifM0Y361b1ve'><span>P53 面部の翻转轻度猎奇.MP4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ixy6S361b1wf'><span>P54 食物式猎奇——胡萝卜HRHR（sm29172791）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ixvwT361b2dc'><span>P55 新型猎奇——武器F(sm15123446).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i6EQb361b2kj'><span>P56 渣渣辉の猎奇凝视——武器Z(av23129934).MP4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iXsMh361b2rg'><span>P57 慎入！久本雅美自卫动态版(sm30592902).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iIeiZ361b2ze'><span>P58 没有名字の猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ip4JU361b32h'><span>P59 武器X(未和谐版)(av24640024).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ikQON361b3hc'><span>P60 miku的繁衍（sm10586065）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iMyVZ361b3kf'><span>P61 柴田的繁衍(sm26050848).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/igSlF361b3rc'><span>P62 闲得蛋疼の猎奇【血僵尸】.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/isXXj361b3xi'><span>P63 十八禁式猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i8rCN361b47i'><span>P64 只有头の小鬼赛跑（消除回避版）(sm33461410).MP4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iQLLk361b4cd'><span>P65 七日死男子部(sm28697081).MP4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/itVdH361b4hi'><span>P66 催眠式猎奇(sm7697637).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iLCRW361b4ne'><span>P67 久本の舞蹈(sm7696311).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ieXL4361b4pg'><span>P68 久本的演讲(sm18568418).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/itzUH361b5jg'><span>P69 惨叫不止の久本桑(sm6825201).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iP5Mk361b5vi'><span>P70 圣母hrhr（sm13116633）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ik1Gh361b5wj'><span>P71 手绘式瞎眼猎奇（sm31080904）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iKDIV361b5yb'><span>P72 惊吓式猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iHGgE361b5zc'><span>P73 武器mockey（sm33389423）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iFXqV361b64h'><span>P74 欢快的hrhr（sm28761701）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iTbN3361b67a'><span>P75 糖果久本 （sm21836614）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/isnLj361b69c'><span>P76 异变の久本雅美 (オチョオチョ虫)(sm31076755).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/icWLh361b6be'><span>P77 治愈后的hrhr(sm11093390).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iCCdj361b6ib'><span>P78 高精岛(av29758624).mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i5gG1361b6oh'><span>P79 可爱の月亮式猎奇――武器T(av24444444).MP4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iYdfo361b6sb'><span>P80 来自黑暗の猎奇——武器O(av19403602).MP4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iBAoS361b6yh'><span>P82 不可数名词.mp4.zip</span></a></p>
+<p><a href='缺少对应链接'><span>P83 缺少该文件</span></a></p>
+<p><a href='缺少对应链接'><span>P84 缺少该文件</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ilSNz361b7kj'><span>P85 完全敷衍的猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iiJ84361b7pe'><span>P86 续血僵尸之后的僵尸汉堡.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iPbDL361b7rg'><span>P87 令人精神恍惚式猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iuk2y361b87c'><span>P88 暗杀式猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iANfE361b8je'><span>P89 扭曲后的hrhr.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iO9IX361b8kf'><span>P90 在茶里吃雪糕的久本.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iqT0P361b8ni'><span>P91 刺眼的闪光hrhr.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iJmY5361b8rc'><span>P92 觉醒反人格的久本桑.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iFJPa361b8uf'><span>P93 高等精神病大军复活了！！.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iYdXL361b9bc'><span>P94 活着的久本.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iFOzH361bb1e'><span>P95 极度鬼畜的hrhr(sm32117499).mp4.zip</span></a></p>
+<p><a href='缺少对应链接'><span>P96 缺少该文件</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iD68e361bb6j'><span>P97 敷衍出来的武器A.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/isfZV361bb9c'><span>P98 改革春风吹满地式猎奇(超超屑作）.mp4.zip</span></a></p>
+<p><a href='缺少对应链接'><span>P99 缺少该文件</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iPBp5361ajyj'><span>P100 教主的客串强化版.mp4.zip</span></a></p>
+<p><a href='缺少对应链接'><span>P101 缺少该文件</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iLkrs361akef'><span>P102 奈亚子和SM666.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i27Gb361akij'><span>P103 地球hrhr.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/icas0361aklc'><span>P104 青鬼久本.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iBZZO361akta'><span>P105 兴奋剂hrhr.mov.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iHwjL361akyf'><span>P106 武器透明胶.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/isJX9361al0h'><span>P107 久本parn耐久.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/idxwl361al6d'><span>P108 决战来临时掉帧式猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iBaCA361albi'><span>P109 高精小僵尸.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ixumq361aluh'><span>P110 终极hrhr.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ixxo7361am1e'><span>P111 决战来临时掉帧式（超屑作）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iZC3u361am3g'><span>P112 未知の猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iAaKJ361amfi'><span>P113 高精紫苑镇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iTAAK361an4d'><span>P114 hrhr碰上了坏天气.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iX6bL361ancb'><span>P115 星球式猎奇(sm17710182).MP4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iTJbA361aned'><span>P116 可爱的兔子（sm12636357）.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i85DE361angf'><span>P117 风暴葱头.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iQLBK361anwb'><span>P118 冷冻hrhr.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i8Dsr361ao1g'><span>P119 猎奇0721 zone.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iakQ5361ao5a'><span>P120 地底hrhr.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iVFR6361aofa'><span>P121 高精推理.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/idUBR361aoqb'><span>P122 逼逼式猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iNRcT361aosd'><span>P123 高精石川Dark zone.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/inOZu361ap8j'><span>P124 时间停止式猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ifJtf361appg'><span>P125 极度焦躁の花屏猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/idVP0361apta'><span>P126 sm666功夫.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ihIfa361aq4b'><span>P127 疯狂的hrhr.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i0753361ar8b'><span>P128 洗脑式猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i44Ru361areh'><span>P129 最终鬼畜miku葱.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ivYQV361arha'><span>P130 hrhr的日常.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iyxfz361arjc'><span>P131 永远的hrhr.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iQRDT361arsb'><span>P132 巨猎奇慎入!不安的裂口之月.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iQ5s8361aryh'><span>P133 久本刷牙.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/is82O361asba'><span>P134 崩坏PARN错乱の高精赛跑.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ihM6v361ascb'><span>P135 超级高精.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i07Hh361ashg'><span>P136 超級高精的美食賽跑.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iydyO361askj'><span>P137 慘叫的美食賽跑.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iL81h361asmb'><span>P138 太空0721.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i6HJC361at2h'><span>P139 崩溃的里世界.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ilgsV361atvg'><span>P140 高精女子部的美食赛跑.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i4Fpv361aune'><span>P141 令人迷糊的美食赛跑.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/isbjw361au4f'><span>P142 bad Apple hrhr .mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/i4Fpv361aune'><span>P143 炼狱hrhr.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ibuSj361auvc'><span>P144 hrhr Reflection.MP4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ilP6L361av6d'><span>P145 来自远东的hrhr.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iBjZU361av7e'><span>P146 久本可乐.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iUKSA361av8f'><span>P147 令人恐惧式猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iwrJ6361avbi'><span>P148 因为噪音不猎奇的猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/ihtSK361avda'><span>P149 面部轻度翻转猎奇.mp4.zip</span></a></p>
+<p><a href='https://wwsj.lanzout.com/iFb3W361avkh'><span>P150 变异的hrhr头.mp4.zip</span></a></p>
