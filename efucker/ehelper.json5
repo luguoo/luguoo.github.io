@@ -1,0 +1,54 @@
+{
+  id: 'com.mistong.ewt360',
+  name: '升学e网通',
+  groups: [
+    {
+      key: 1,
+      name: '[ChangeMe]规则名称-2025-08-20 09:35:00',
+      desc: '[ChangeMe]本规则由GKD网页端审查工具生成',
+      rules: [
+        {
+          matches: [
+            '[text="返回任务列表"]'
+          ],
+          fastQuery: true,
+          activityIds: [
+            'com.mistong.ewt360.homework.view.homework.NewHomeworkVideoPlayActivity'
+          ]
+        }
+      ]
+    },
+    {
+      key: 4,
+      name: '[ChangeMe]规则名称-2025-08-20 09:35:10',
+      desc: '[ChangeMe]本规则由GKD网页端审查工具生成',
+      rules: [
+        {
+          matches: [
+            '[text="点击通过检测"]'
+          ],
+          fastQuery: true,
+          activityIds: [
+            'com.mistong.ewt360.homework.view.homework.NewHomeworkVideoPlayActivity'
+          ]
+        }
+      ]
+    },
+    {
+      key: 2,
+      name: '[ChangeMe]规则名称-2025-08-20 09:45:00',
+      desc: '[ChangeMe]本规则由GKD网页端审查工具生成',
+      rules: [
+        {
+          matches: [
+            '[text="跳过"]'
+          ],
+          fastQuery: true,
+          activityIds: [
+            'com.mistong.ewt360.homework.view.homework.NewHomeworkVideoPlayActivity'
+          ]
+        }
+      ]
+    }
+  ]
+}
