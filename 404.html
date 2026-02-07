@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>出错啦! - luguoo.github.io</title>
+    <style type="text/css">
+        html, body {
+            padding: 0;
+            margin: 0;
+            background: #f1f2f3;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* 电脑端容器修复 */
+        .error-container {
+            max-width: 980px;
+            margin: 50px auto;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center; /* 确保内容居中 */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .error-panel img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        /* 按钮样式修复 - 确保可见且易点击 */
+        .rollback-btn {
+            display: inline-block;
+            height: 44px;
+            line-height: 44px;
+            padding: 0 40px;
+            background: #00a1d6;
+            color: #ffffff !important; /* 强制白色 */
+            border-radius: 4px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .rollback-btn:hover {
+            background: #00AEEC;
+            box-shadow: 0 4px 12px rgba(0,161,214,0.3);
+        }
+
+        /* 手机端 H5 容器修复 */
+        .h5-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* 响应式适配 */
+        @media screen and (max-width: 500px) {
+            .error-container { 
+                display: none; 
+            }
+            .h5-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh; /* 撑满全屏居中 */
+            }
+            .h5__img { 
+                width: 260px; 
+                margin-bottom: 20px;
+            }
+            .h5__desc { 
+                color: #9499A0; 
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+    <link rel="shortcut icon" href="https://static.hdslb.com/images/favicon.ico">
+</head>
+
+<body>
+    <div class="error-container">
+        <div class="error-panel">
+            <img src="https://static.hdslb.com/error/very_sorry.png" alt="抱歉，出错了">
+            <div style="margin-top: 20px;">
+                <a href="https://luguoo.github.io/video" class="rollback-btn">返回上一页</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="h5-container">
+        <img class="h5__img" src="https://s1.hdslb.com/bfs/static/jinkela/long/bitmap/error_01.png" alt="无法找到页面">
+        <div class="h5__desc">
+            <span>Σ(oﾟдﾟoﾉ) 无法找到该页面~</span>
+        </div>
+        <a href="https://luguoo.github.io/video" class="rollback-btn">返回首页</a>
+    </div>
+
+    <script>
+        // 如果你需要点击时弹出之前要求的文字，可以保留这段逻辑
+        document.querySelectorAll('.rollback-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                console.log("即将跳转至 luguoo.github.io/video");
+                // 如果需要弹窗，请取消下面这行的注释
+                // alert("源码来自https://yjtai.cc.cd/");
+            });
+        });
+    </script>
+</body>
+</html>

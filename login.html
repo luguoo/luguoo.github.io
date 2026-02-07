@@ -1,0 +1,630 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="gB1ArUxYoAQgRnBnBlQ-y3qiLSvGH9Afxnjn6q5l7qo" />
+    <title>登录 - 稿件博物馆</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .login-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .scroll-hint {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold gradient-text mb-2">欢迎回来！</h1>
+            <p class="text-gray-500">请选择你的登录方式</p>
+            <p class="text-xs text-gray-400 mt-2 scroll-hint">↓ 下滑即刻登陆稿件博物馆 ↓</p>
+        </div>
+
+        <!-- Login Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-medium mb-2">邮箱地址</label>
+                <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="your@email.com">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-medium mb-2">密码</label>
+                <input type="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="••••••••">
+            </div>
+            <button class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition">
+                登录
+            </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="flex items-center mb-8">
+            <div class="flex-1 border-t border-gray-300"></div>
+            <span class="px-4 text-gray-500 text-sm">或者使用以下 87 种方式登录</span>
+            <div class="flex-1 border-t border-gray-300"></div>
+        </div>
+
+        <!-- Third Party Login Options -->
+        <div class="space-y-3" id="loginOptions">
+            <!-- 主流社交平台 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-6">主流社交平台</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-white border border-gray-300 py-3 px-4 rounded-lg font-medium">
+                <img src="https://www.google.com/favicon.ico" class="w-5 h-5"> 使用 Google 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#1877F2] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-facebook text-xl"></i> 使用 Facebook 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-black text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-apple text-xl"></i> 使用 Apple 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-black text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-x-twitter text-xl"></i> 使用 X (Twitter) 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-instagram text-xl"></i> 使用 Instagram 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-black text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-tiktok text-xl"></i> 使用 TikTok 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#25D366] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-whatsapp text-xl"></i> 使用 WhatsApp 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0088cc] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-telegram text-xl"></i> 使用 Telegram 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#07C160] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-weixin text-xl"></i> 使用微信登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#EB4747] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-weibo text-xl"></i> 使用微博登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#12B7F5] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-qq text-xl"></i> 使用 QQ 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00C300] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-line text-xl"></i> 使用 LINE 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FFCD00] text-black py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-comment text-xl"></i> 使用 KakaoTalk 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FFFC00] text-black py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-snapchat text-xl"></i> 使用 Snapchat 登录
+            </button>
+
+            <!-- 视频平台 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-8">视频平台</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF0000] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-youtube text-xl"></i> 使用 YouTube 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00A1D6] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-bilibili text-xl"></i> 使用 Bilibili 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#9146FF] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-twitch text-xl"></i> 使用 Twitch 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#1AB7EA] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-vimeo text-xl"></i> 使用 Vimeo 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FE2C55] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-video text-xl"></i> 使用抖音登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF4500] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-fire text-xl"></i> 使用快手登录
+            </button>
+
+            <!-- 流媒体平台 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-8">流媒体平台</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#E50914] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-film text-xl"></i> 使用 Netflix 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#1DB954] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-spotify text-xl"></i> 使用 Spotify 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#0D0628] to-[#1A1A4E] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-play text-xl"></i> 使用 Disney+ 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00A8E1] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-tv text-xl"></i> 使用 Prime Video 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#B4009E] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-play-circle text-xl"></i> 使用 HBO Max 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#1CE783] text-black py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-tv text-xl"></i> 使用 Hulu 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#F47521] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-dragon text-xl"></i> 使用 Crunchyroll 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF6600] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-soundcloud text-xl"></i> 使用 SoundCloud 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FA233B] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-apple text-xl"></i> 使用 Apple Music 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#121212] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-water text-xl"></i> 使用 Tidal 登录
+            </button>
+
+            <!-- 开发者平台 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-8">开发者平台</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#181717] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-github text-xl"></i> 使用 GitHub 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FC6D26] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-gitlab text-xl"></i> 使用 GitLab 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0052CC] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-bitbucket text-xl"></i> 使用 Bitbucket 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF4500] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-stack-overflow text-xl"></i> 使用 Stack Overflow 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-black text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-code text-xl"></i> 使用 Vercel 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#F48120] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-cloud text-xl"></i> 使用 AWS 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#4285F4] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-google text-xl"></i> 使用 Google Cloud 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0078D4] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-microsoft text-xl"></i> 使用 Azure 登录
+            </button>
+
+            <!-- 企业办公 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-8">企业办公</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0078D4] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-microsoft text-xl"></i> 使用 Microsoft 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0A66C2] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-linkedin text-xl"></i> 使用 LinkedIn 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#4A154B] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-slack text-xl"></i> 使用 Slack 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#2D8CFF] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-video text-xl"></i> 使用 Zoom 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00AFF0] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-skype text-xl"></i> 使用 Skype 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#5865F2] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-discord text-xl"></i> 使用 Discord 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0079BF] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-trello text-xl"></i> 使用 Trello 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-black text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-book text-xl"></i> 使用 Notion 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0052CC] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-jira text-xl"></i> 使用 Jira 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#172B4D] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-confluence text-xl"></i> 使用 Confluence 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0061FF] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-dropbox text-xl"></i> 使用 Dropbox 登录
+            </button>
+
+            <!-- 设计工具 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-8">设计工具</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#F24E1E] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-figma text-xl"></i> 使用 Figma 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF3366] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-dribbble text-xl"></i> 使用 Dribbble 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0057FF] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-behance text-xl"></i> 使用 Behance 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF0000] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-adobe text-xl"></i> 使用 Adobe 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FDAB00] text-black py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-sketch text-xl"></i> 使用 Sketch 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#8B5CF6] to-[#D946EF] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-wand-magic-sparkles text-xl"></i> 使用 Canva 登录
+            </button>
+
+            <!-- 电商支付 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-8">电商 & 支付</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#003087] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-paypal text-xl"></i> 使用 PayPal 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF9900] text-black py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-amazon text-xl"></i> 使用 Amazon 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0064D2] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-ebay text-xl"></i> 使用 eBay 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#96BF48] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-shopify text-xl"></i> 使用 Shopify 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF6600] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-alipay text-xl"></i> 使用支付宝登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#635BFF] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-stripe text-xl"></i> 使用 Stripe 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00D632] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-dollar-sign text-xl"></i> 使用 Cash App 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#3396FF] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-wallet text-xl"></i> 使用 Venmo 登录
+            </button>
+
+            <!-- 游戏平台 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-8">游戏平台</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#171A21] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-steam text-xl"></i> 使用 Steam 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#2D2D2D] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-gamepad text-xl"></i> 使用 Epic Games 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#003791] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-playstation text-xl"></i> 使用 PlayStation 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#107C10] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-xbox text-xl"></i> 使用 Xbox 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#E60012] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-gamepad text-xl"></i> 使用 Nintendo 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00ADEF] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-ghost text-xl"></i> 使用 Blizzard 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#EE1C24] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-dice text-xl"></i> 使用 EA 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#E2001A] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-gamepad text-xl"></i> 使用育碧登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#663399] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-headset text-xl"></i> 使用 GOG 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FA5C5C] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-cube text-xl"></i> 使用 Roblox 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#7289DA] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-cubes text-xl"></i> 使用 Minecraft 登录
+            </button>
+
+            <!-- 生活服务 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-8">生活服务</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-black text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-uber text-xl"></i> 使用 Uber 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00D95F] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-pizza-slice text-xl"></i> 使用 Uber Eats 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF5A5F] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-airbnb text-xl"></i> 使用 Airbnb 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#003580] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-bed text-xl"></i> 使用 Booking.com 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00AF87] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-leaf text-xl"></i> 使用 TripAdvisor 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF3008] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-motorcycle text-xl"></i> 使用 DoorDash 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#E31837] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-hamburger text-xl"></i> 使用 Grubhub 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FBD14B] text-black py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-utensils text-xl"></i> 使用美团登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0ABAB5] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-bowl-food text-xl"></i> 使用饿了么登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00B140] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-car text-xl"></i> 使用滴滴登录
+            </button>
+
+            <!-- 社区平台 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-8">社区平台</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF4500] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-reddit text-xl"></i> 使用 Reddit 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#E60023] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-pinterest text-xl"></i> 使用 Pinterest 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#36465D] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-tumblr text-xl"></i> 使用 Tumblr 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-black text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-medium text-xl"></i> 使用 Medium 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#21759B] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-wordpress text-xl"></i> 使用 WordPress 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#1DA1F2] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-rss text-xl"></i> 使用知乎登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00C1DE] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-book-open text-xl"></i> 使用小红书登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF6699] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-feather text-xl"></i> 使用 LOFTER 登录
+            </button>
+
+            <!-- 加密货币 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-8">加密货币</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#F7931A] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-bitcoin text-xl"></i> 使用 Bitcoin 钱包登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#627EEA] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fab fa-ethereum text-xl"></i> 使用 MetaMask 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0052FF] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-coins text-xl"></i> 使用 Coinbase 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#F0B90B] text-black py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-chart-line text-xl"></i> 使用 Binance 登录
+            </button>
+
+            <!-- 奇葩选项 -->
+            <div class="text-xs text-gray-400 uppercase tracking-wider mb-2 mt-8">✨ 特别登录方式 ✨</div>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00ACED] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-baby text-xl"></i> 使用 OnlyFans 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#1E1E1E] text-[#F97316] py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-fire text-xl"></i> 使用 Pornhub 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FE3C72] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-fire text-xl"></i> 使用 Tinder 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FFD700] text-black py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-crown text-xl"></i> 使用 Grindr 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-pepper-hot text-xl"></i> 使用肯德基会员登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#DA291C] text-[#FFC72C] py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-hamburger text-xl"></i> 使用麦当劳会员登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00704A] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-mug-hot text-xl"></i> 使用星巴克会员登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#472D2D] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-ice-cream text-xl"></i> 使用喜茶会员登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#FF0000] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-bowl-rice text-xl"></i> 使用海底捞会员登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#1428A0] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-tv text-xl"></i> 使用三星账号登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#EE4D2D] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-shopping-bag text-xl"></i> 使用淘宝登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#C71A0E] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-shopping-cart text-xl"></i> 使用京东登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#E43C38] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-store text-xl"></i> 使用拼多多登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#00A0DC] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-plane text-xl"></i> 使用携程登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-id-card text-xl"></i> 使用社保账号登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#CC0000] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-train text-xl"></i> 使用 12306 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#217346] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-file-excel text-xl"></i> 使用 Excel 文件登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#0F9D58] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-table text-xl"></i> 使用 Google Sheets 登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-cat text-xl"></i> 使用猫脸识别登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#4267B2] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-brain text-xl"></i> 使用脑电波登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-gradient-to-r from-green-400 to-blue-500 text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-dna text-xl"></i> 使用 DNA 验证登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#6B5B95] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-fingerprint text-xl"></i> 使用脚纹识别登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-sun text-xl"></i> 使用看太阳眨眼次数登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#2E8B57] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-tree text-xl"></i> 使用蚂蚁森林能量登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#800000] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-user-secret text-xl"></i> 使用你前任的账号登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-[#4B0082] text-white py-3 px-4 rounded-lg font-medium">
+                <i class="fas fa-ghost text-xl"></i> 使用鬼魂验证登录
+            </button>
+            
+            <button class="login-btn w-full flex items-center justify-center gap-3 bg-black text-green-400 py-3 px-4 rounded-lg font-medium font-mono">
+                <i class="fas fa-terminal text-xl"></i> sudo login --force
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 py-8 border-t border-gray-200">
+            <p class="text-gray-400 text-sm">还没有账号？</p>
+            <button class="text-purple-600 font-medium hover:underline">注册一个 (需要经过以上全部87种验证)</button>
+            <p class="text-xs text-gray-300 mt-4">© 2024 绝对不是钓鱼网站™</p>
+        </div>
+    </div>
+
+    <script>
+        // Add click handlers to all buttons
+        document.querySelectorAll('.login-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const text = this.innerText;
+                alert(`正在尝试使用 ${text.replace('使用 ', '').replace(' 登录', '')} 登录...\n\n开玩笑的，这只是一个恶搞网站 😄\n源码来自https://yjtai.cc.cd/`);
+            });
+        });
+
+        // Traditional login button
+        document.querySelector('button.bg-gradient-to-r').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('传统登录？太无聊了！\n\n请往下滑选择一个有趣的第三方登录方式 ⬇️');
+        });
+    </script>
+</body>
+</html>
