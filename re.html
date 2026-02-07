@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新日暮里♂哲学博览</title>
+    <style>
+        :root {
+            --primary-color: #00d2ff;
+            --secondary-color: #3a7bd5;
+            --bg-dark: #0f0f0f;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #ff9800;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        /* 控制面板优化 */
+        .control-panel {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 12px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 12px 25px;
+            background: #252525;
+            border: 1px solid #444;
+            border-radius: 25px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+
+        #searchInput:focus { border-color: var(--primary-color); box-shadow: 0 0 10px rgba(0,210,255,0.3); }
+
+        /* 可折叠的锚点导航 */
+        .nav-wrapper {
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .nav-toggle {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.3);
+            user-select: none;
+        }
+
+        .anchor-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-height: 0;
+            transition: max-height 0.4s ease, padding 0.3s;
+            padding: 0;
+            opacity: 0;
+        }
+
+        .nav-wrapper.expanded .anchor-nav {
+            max-height: 300px;
+            padding: 10px 0;
+            opacity: 1;
+        }
+
+        .anchor-link {
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            background: #333;
+            color: #aaa;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .anchor-link:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .section-container {
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 15px;
+            border: 1px solid #222;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #151515;
+            scroll-margin-top: 150px; /* 防止跳转后被顶部面板遮挡 */
+        }
+
+        /* 折叠头部 */
+        .section-header {
+            background: var(--card-bg);
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.3s;
+        }
+
+        .section-header:hover { background: #252525; }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .video-count {
+            font-size: 0.8rem;
+            background: #000;
+            color: var(--primary-color);
+            padding: 2px 8px;
+            border-radius: 10px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .toggle-icon {
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+            color: #666;
+        }
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 20px;
+        }
+
+        .section-container.active .section-content {
+            max-height: 5000px;
+            padding: 20px;
+            border-top: 1px solid #222;
+        }
+
+        .section-container.active .toggle-icon { transform: rotate(180deg); }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .video-item {
+            background: #222;
+            border-radius: 8px;
+            padding: 15px;
+            text-decoration: none;
+            color: #ccc;
+            transition: 0.2s;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+        }
+
+        .video-item:hover {
+            border-color: var(--primary-color);
+            color: white;
+            background: #2a2a2a;
+            transform: translateX(5px);
+        }
+
+        .video-item::before {
+            content: '▶';
+            margin-right: 12px;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+        }
+
+        .video-title {
+            line-height: 1.4;
+            word-break: break-all;
+        }
+
+        footer { margin-top: 50px; font-size: 0.8rem; color: #666; padding-bottom: 20px; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>DEEP ♂ DARK ♂ FANTASY</h1>
+    <p>兄贵索引 · 哲♂学家の精华</p>
+</header>
+
+<div class="control-panel">
+    <input type="text" id="searchInput" placeholder="搜索作者、分区或视频标题...">
+    <div class="nav-wrapper" id="navWrapper">
+        <div class="nav-toggle" onclick="toggleNav()">快速跳转分区 ▼</div>
+        <div class="anchor-nav" id="anchorNav"></div>
+    </div>
+</div>
+
+<div id="content-area" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+</div>
+
+<footer>
+    © 2026 Luguo - May the Deep Dark Fantasy be with you.
+</footer>
+
+<script>
+    // 在原数据基础上，将“散装”排在第一位
+    const data = [
+        {
+            category: "散装",
+            videos: [
+                { name: "【哲学】counting♂stars - 1.1(Av11318125,P1)", url: "https://wwbqj.lanzout.com/itDic3hzud8h" },
+                { name: "【兄贵】少♂男终末旅行-1.1(Av18306134,P1)", url: "https://wwbqj.lanzout.com/iLK2w3hzucyh" },
+                { name: "【兄贵】我一定是看了假的海绵宝宝 AV9466349", url: "https://wwbqj.lanzout.com/iXDTG3hzucng" },
+                { name: "【兄贵】心中的日♂月 AV7384485", url: "https://wwbqj.lanzout.com/iRqrK3hzucmf" },
+                { name: "【兄贵】斯大林♂格勒-(Av7766745,P1)", url: "https://wwbqj.lanzout.com/iUdZQ3hzucha" }
+            ]
+        },
+        {
+            category: "上海滩许van强",
+            videos: [
+                { name: "【电音兄贵 Feat.全明星】当新日暮里电音遇上全明星", url: "https://wwbqj.lanzout.com/ih7Mx3hyz1xe" },
+                { name: "[VAN绎龙]搓屌之王", url: "https://wwbqj.lanzout.com/iIG6e3hyz1ja" },
+                { name: "[Time]舞♂王的诞生", url: "https://wwbqj.lanzout.com/ilpw33hyz17i" },
+                { name: "[兄贵]恋爱循环", url: "https://wwbqj.lanzout.com/iRER23hyz0pa" },
+                { name: "[迪迦奥特曼片尾曲]永远奥特曼", url: "https://wwbqj.lanzout.com/iw7C53hyz0bg" },
+                { name: "坐上火♂车去拉萨", url: "https://wwbqj.lanzout.com/ihK2G3hyz00f" },
+                { name: "哲♂学舞厅", url: "https://wwbqj.lanzout.com/iEROH3hyyzxc" },
+                { name: "哲学派♂对", url: "https://wwbqj.lanzout.com/iD1kC3hyyzkj" },
+                { name: "月亮代表我♂心", url: "https://wwbqj.lanzout.com/i6iSI3hyyyxg" },
+                { name: "殷桃小丸子", url: "https://wwbqj.lanzout.com/it6Fz3hyyy1e" },
+                { name: "一个师♂傅仨徒♂弟", url: "https://wwbqj.lanzout.com/ihNsD3hyyxuh" },
+                { name: "兄贵♂奇谭", url: "https://wwbqj.lanzout.com/iBlNt3hyyxre" },
+                { name: "兄贵去哪儿", url: "https://wwbqj.lanzout.com/ij5gr3hyyxna" },
+                { name: "星球大战 新日暮里的硝烟", url: "https://wwbqj.lanzout.com/iwZHN3hyyxah" },
+                { name: "新日暮里之恋", url: "https://wwbqj.lanzout.com/iB2hP3hyyx4b" },
+                { name: "新日暮里圣诞节", url: "https://wwbqj.lanzout.com/ia1UT3hyywne" },
+                { name: "新贵妃♂醉酒", url: "https://wwbqj.lanzout.com/iwwP73hyywja" },
+                { name: "舞曲3", url: "https://wwbqj.lanzout.com/i31m03hyyvyj" },
+                { name: "舞曲2", url: "https://wwbqj.lanzout.com/iXmVt3hyyvte" },
+                { name: "舞曲1", url: "https://wwbqj.lanzout.com/i4CPZ3hyyvlg" },
+                { name: "为什么不去摔跤？", url: "https://wwbqj.lanzout.com/ijl5g3hyyvej" },
+                { name: "围棋♂少年", url: "https://wwbqj.lanzout.com/ijQiA3hyyuih" },
+                { name: "tubo电音mix", url: "https://wwbqj.lanzout.com/iaCjR3hyyu6f" },
+                { name: "treasure", url: "https://wwbqj.lanzout.com/i4zEk3hyytsb" },
+                { name: "他就是你梦里的男人？", url: "https://wwbqj.lanzout.com/ilmdG3hyytkd" },
+                { name: "水♂手", url: "https://wwbqj.lanzout.com/iFkLU3hyyssf" },
+                { name: "摔跤的骗♂子我问你", url: "https://wwbqj.lanzout.com/iouqc3hyyquf" },
+                { name: "十♂年", url: "https://wwbqj.lanzout.com/iRor43hyyqaf" },
+                { name: "Seve♂新日暮里魅惑舞步教学", url: "https://wwbqj.lanzout.com/izxZu3hyyped" },
+                { name: "千万别看兄贵", url: "https://wwbqj.lanzout.com/iIEii3hyyoud" },
+                { name: "pennitic tokyo", url: "https://wwbqj.lanzout.com/iN6as3hyyogj" },
+                { name: "Panama♂新日暮里舞步短视频", url: "https://wwbqj.lanzout.com/izqrE3hyynmj" },
+                { name: "派对狂人", url: "https://wwbqj.lanzout.com/iUBwE3hyymsj" },
+                { name: "你是我的♂眼", url: "https://wwbqj.lanzout.com/idr1d3hyym6h" },
+                { name: "美少♂女，集结！", url: "https://wwbqj.lanzout.com/iO1oh3hyylfa" },
+                { name: "炉石♂传说", url: "https://wwbqj.lanzout.com/iNN5Q3hyyl7c" },
+                { name: "快乐♂大本营", url: "https://wwbqj.lanzout.com/iLm8k3hyykod" },
+                { name: "快乐崇拜", url: "https://wwbqj.lanzout.com/i1zZe3hyyjjc" },
+                { name: "精忠♂报国", url: "https://wwbqj.lanzout.com/icElB3hyyiwj" },
+                { name: "火力比利王", url: "https://wwbqj.lanzout.com/iNmsV3hyyifc" },
+                { name: "核♂爆 扭曲时空", url: "https://wwbqj.lanzout.com/iCxZJ3hyyh6h" },
+                { name: "广东♂霸王", url: "https://wwbqj.lanzout.com/iEleB3hyyg9e" },
+                { name: "广场♂舞", url: "https://wwbqj.lanzout.com/iE8Vc3hyyfod" },
+                { name: "goodtime", url: "https://wwbqj.lanzout.com/iiLxk3hyyeoh" },
+                { name: "浮♂夸", url: "https://wwbqj.lanzout.com/ibZGM3hyye7a" },
+                { name: "法外狂♂徒 -", url: "https://wwbqj.lanzout.com/ipYuv3hyycfg" },
+                { name: "don'tstop", url: "https://wwbqj.lanzout.com/ib0ZP3hyybfa" },
+                { name: "第五人♂格", url: "https://wwbqj.lanzout.com/i8rgb3hyyb3i" },
+                { name: "当灵魂电♂音遇上最♂强DJ", url: "https://wwbqj.lanzout.com/iRWgR3hyyarg" },
+                { name: "大笑♂江湖", url: "https://wwbqj.lanzout.com/ieWoj3hyya6f" },
+                { name: "打屁♂鼓", url: "https://wwbqj.lanzout.com/iS8t23hyya0j" },
+                { name: "彩♂虹六号", url: "https://wwbqj.lanzout.com/iIJCD3hyy8gd" },
+                { name: "彩虹♂猫", url: "https://wwbqj.lanzout.com/i5n3x3hyy7lc" },
+                { name: "北斗神拳", url: "https://wwbqj.lanzout.com/iMN143hyy7fg" },
+                { name: "宝强的粉红色夏天", url: "https://wwbqj.lanzout.com/iQ2mF3hyy6oj" },
+                { name: "霸王别姬", url: "https://wwbqj.lanzout.com/i6d1N3hyy6gb" },
+                { name: "暗黑♂夜店", url: "https://wwbqj.lanzout.com/iXMli3hyy5sh" },
+                { name: "300英♂雄", url: "https://wwbqj.lanzout.com/iTrRb3hyy4qj" },
+                { name: "[新日暮里福音战士]残酷比利的行动纲领", url: "https://wwbqj.lanzout.com/i3chn3hyxzsb" }
+            ]
+        },
+        {
+            category: "倒悬的橘子",
+            videos: [
+                { name: "【哲学】白金disco", url: "https://wwbqj.lanzout.com/ip7Dp3hz01ah" },
+                { name: "【兄贵】兄贵大door东", url: "https://wwbqj.lanzout.com/i8psV3hz00yf" },
+                { name: "【兄贵】Are you o♂k？", url: "https://wwbqj.lanzout.com/izwjN3hz00lc" }
+            ]
+        },
+        {
+            category: "水果炖白菜",
+            videos: [
+                { name: "【兄贵】旧欢♂如梦", url: "https://wwbqj.lanzout.com/i2OHu3hzq2nc" },
+                { name: "【哲♂学】月半♂小夜曲", url: "https://wwbqj.lanzout.com/ixoy73hzq2gf" },
+                { name: "【哲♂学】千千♂阙歌 -", url: "https://wwbqj.lanzout.com/iSlGL3hzq2fe" },
+                { name: "【哲♂学】存♂在", url: "https://wwbqj.lanzout.com/i4QYz3hzq25e" },
+                { name: "【哲♂学】上弦♂之月", url: "https://wwbqj.lanzout.com/i8nYn3hzq1ve" },
+                { name: "【哲♂学】CS♂Online", url: "https://wwbqj.lanzout.com/ieSdi3hzq1le" },
+                { name: "【哲♂学】上学♂歌", url: "https://wwbqj.lanzout.com/iEEoq3hzq1kd" },
+                { name: "【哲♂学】星星♂点灯 -", url: "https://wwbqj.lanzout.com/i1vya3hzq1ha" },
+                { name: "【哲♂学】热♂情的沙漠", url: "https://wwbqj.lanzout.com/ikbjb3hzq1cf" },
+                { name: "【哲♂学】神经病♂之歌", url: "https://wwbqj.lanzout.com/iAkhB3hzq17a" },
+                { name: "【哲♂学】Rolling in the deep♂", url: "https://wwbqj.lanzout.com/iEqEj3hzq0yb" },
+                { name: "【哲♂学】老♂男孩 -", url: "https://wwbqj.lanzout.com/iINfn3hzq0tg" },
+                { name: "【哲学】武林外传", url: "https://wwbqj.lanzout.com/inijj3hzq0if" },
+                { name: "【哲学】月亮惹的祸", url: "https://wwbqj.lanzout.com/iksiX3hzq0he" },
+                { name: "【哲学】H♂p——保加利亚♂比利王", url: "https://wwbqj.lanzout.com/iaI7d3hzq07e" },
+                { name: "【哲学】青藏高原", url: "https://wwbqj.lanzout.com/is5EU3hzq00h" },
+                { name: "红♂日", url: "https://wwbqj.lanzout.com/ili0B3hzpxih" },
+                { name: "【哲学】元宵节", url: "https://wwbqj.lanzout.com/iMmXa3hzpzvc" },
+                { name: "【兄贵】西域风♂情", url: "https://wwbqj.lanzout.com/iSKuB3hzpy2h" }
+            ]
+        },
+        {
+            category: "卖大碗茶的",
+            videos: [
+                { name: "【Re0】蕾姆，不可以这么色啦！", url: "https://wwbqj.lanzout.com/iIa3q3hzsfxc" },
+                { name: "【Re0】从零开始的♂异世界生活", url: "https://wwbqj.lanzout.com/ij8eO3hzsfsh" },
+                { name: "【哲学】大♂和号", url: "https://wwbqj.lanzout.com/ioaOV3hzsfkj" },
+                { name: "【哲学】我的哲♂学修炼物语果然有van题 - 春物改", url: "https://wwbqj.lanzout.com/ivt1V3hzsffe" },
+                { name: "【哲学】少♂男终末旅", url: "https://wwbqj.lanzout.com/ig6JP3hzsf5e" },
+                { name: "【哲学】哲学♂战车", url: "https://wwbqj.lanzout.com/i45m63hzsf2b" },
+                { name: "【哲学】在下Van様,有何贵♂干？", url: "https://wwbqj.lanzout.com/iVEBO3hzsf0j" },
+                { name: "【哲学】史诗级现代哲♂学音乐（two steps from van）", url: "https://wwbqj.lanzout.com/iColN3hzsepi" },
+                { name: "【哲学】Love♂Live！学园哲学祭！", url: "https://wwbqj.lanzout.com/imrCh3hzseib" },
+                { name: "【哲学】不列颠空♂战", url: "https://wwbqj.lanzout.com/iUFln3hzseeh" },
+                { name: "【哲学】敦刻尔克大撤♂退", url: "https://wwbqj.lanzout.com/iMpl83hzsdsf" },
+                { name: "【哲学】干物弟♂大埋！", url: "https://wwbqj.lanzout.com/imQNG3hzsdjg" },
+                { name: "【哲学】父♂亲", url: "https://wwbqj.lanzout.com/iOAo83hzsdfc" },
+                { name: "【哲学】斯大林♂格勒", url: "https://wwbqj.lanzout.com/iQ9Rt3hzsd7e" },
+                { name: "【哲学】越南♂战争", url: "https://wwbqj.lanzout.com/i3GP03hzscwd" },
+                { name: "【哲学】醉梦♂佳人 -", url: "https://wwbqj.lanzout.com/iz8RT3hzscgh" },
+                { name: "【哲学】罪恶van♂冠", url: "https://wwbqj.lanzout.com/i2BUj3hzsc9a" },
+                { name: "【哲学】血战♂钢锯岭", url: "https://wwbqj.lanzout.com/iUehJ3hzsc6h" },
+                { name: "【哲学】纱雾妹妹不可能这么哲学！ - 埃罗芒阿改", url: "https://wwbqj.lanzout.com/iCa9V3hzsc4f" },
+                { name: "【哲学】1776独♂立战争", url: "https://wwbqj.lanzout.com/iAzEH3hzsc3e" },
+                { name: "【哲学】紫罗兰永♂恒花园", url: "https://wwbqj.lanzout.com/ioQlW3hzsbza" },
+                { name: "【哲学】生化危♂机：弱子风♂暴", url: "https://wwbqj.lanzout.com/iOusy3hzsbxi" },
+                { name: "【哲学】碧♂男航线", url: "https://wwbqj.lanzout.com/iIvUT3hzsbqb" },
+                { name: "【兄贵】笨♂女孩", url: "https://wwbqj.lanzout.com/iI73M3hzsbje" },
+                { name: "【兄贵】一生♂一起走", url: "https://wwbqj.lanzout.com/iuPmf3hzsbhc" },
+                { name: "【妹抖龙】小林家的龙女♂仆 - 龙女仆改", url: "https://wwbqj.lanzout.com/ibW113hzsbfa" },
+                { name: "[兄贵]爱我中华", url: "https://wwbqj.lanzout.com/ioKoE3hzsb8d" },
+                { name: "兄贵坦克大决战", url: "https://wwbqj.lanzout.com/iG4XB3hzsb4j" },
+                { name: "兄贵太平洋海战", url: "https://wwbqj.lanzout.com/i6mAq3hzsauj" },
+                { name: "工口猫娘咖啡厅", url: "https://wwbqj.lanzout.com/irZtF3hzsash" },
+                { name: "福利 工口", url: "https://wwbqj.lanzout.com/iCxe13hzsarg" }
+            ]
+        },
+        {
+            category: "蓝道君",
+            videos: [
+                { name: "【哲♂学】That♂Boy (蓝door-Mashup)", url: "https://wwbqj.lanzout.com/i0lP13hzsaih" },
+                { name: "【哲♂学】BBOOM♂BBOOM（蓝door-Mashup）", url: "https://wwbqj.lanzout.com/iTP6g3hzsadc" },
+                { name: "【哲学】Panama ♂洗脑向！", url: "https://wwbqj.lanzout.com/il3X83hzsa7g" },
+                { name: "【哲学】Something Just Like♂This", url: "https://wwbqj.lanzout.com/ivOie3hzsa3c" },
+                { name: "【哲学】Closer♂", url: "https://wwbqj.lanzout.com/iTBIv3hzs9le" },
+                { name: "【哲学】Lucky♂strike", url: "https://wwbqj.lanzout.com/iGtBh3hzs9gj" },
+                { name: "【哲学】冬天里的一把♂火", url: "https://wwbqj.lanzout.com/iutcL3hzs9cf" },
+                { name: "【哲学】Scream♂shout （抖腿向）", url: "https://wwbqj.lanzout.com/i7Gxm3hzs9ad" },
+                { name: "【哲学】shape♂ of♂ you", url: "https://wwbqj.lanzout.com/iYbLP3hzs98b" },
+                { name: "【哲学】千年♂等一回", url: "https://wwbqj.lanzout.com/izrhE3hzs94h" },
+                { name: "【哲学】追梦♂赤子心！ 献给奋斗中的你们！", url: "https://wwbqj.lanzout.com/iWRZI3hzs90d" },
+                { name: "【哲学】爱啦♂啦", url: "https://wwbqj.lanzout.com/ihyU63hzs8vi" },
+                { name: "【哲学】富士♂山下", url: "https://wwbqj.lanzout.com/iJymD3hzs8pc" },
+                { name: "【哲学】落雨♂大", url: "https://wwbqj.lanzout.com/iDk7y3hzs8he" },
+                { name: "【哲学】桑巴♂舞", url: "https://wwbqj.lanzout.com/i6Zj63hzs8cj" },
+                { name: "【兄贵】兄弟♂抱一下", url: "https://wwbqj.lanzout.com/i4iR03hzs84b" },
+                { name: "【新日暮里嘻哈音le】老♂dark", url: "https://wwbqj.lanzout.com/iD2ma3hzs7ub" },
+                { name: "【光明电♂音】Sun♂", url: "https://wwbqj.lanzout.com/iNFGr3hzs7ta" },
+                { name: "兄贵我也想吸van仔牛奶", url: "https://wwbqj.lanzout.com/iKAoJ3hzs7bc" },
+                { name: "Without♂You", url: "https://wwbqj.lanzout.com/iT89P3hzs78j" },
+                { name: "There♂For♂You（王之专场）", url: "https://wwbqj.lanzout.com/iOfaj3hzs76h" },
+                { name: "热♂舞", url: "https://wwbqj.lanzout.com/iTdTj3hzs6uf" },
+                { name: "蕉♂大人的梦", url: "https://wwbqj.lanzout.com/iJYZu3hzs6kf" },
+                { name: "Galway♂boy", url: "https://wwbqj.lanzout.com/irDq73hzs6ch" },
+                { name: "despacito♂", url: "https://wwbqj.lanzout.com/imJXc3hzs60f" }
+            ]
+        },
+        {
+            category: "可乐C",
+            videos: [
+                { name: "【哲♂学】实现梦想的Door♂啦A梦", url: "https://wwbqj.lanzout.com/iNFDv3hzrcza" },
+                { name: "【抖腿向】当哲♂学遇上电音 (feat.全明星)", url: "https://wwbqj.lanzout.com/iKiox3hzrckf" },
+                { name: "苏♂醒", url: "https://wwbqj.lanzout.com/ihTQb3hzrbva" },
+                { name: "怒放的生♂命", url: "https://wwbqj.lanzout.com/iHcUd3hzrbji" },
+                { name: "Dark♂海日♂升", url: "https://wwbqj.lanzout.com/ii1dO3hzraoh" },
+                { name: "超级马♂里♂奥兄弟", url: "https://wwbqj.lanzout.com/i0lMv3hzr8xe" }
+            ]
+        },
+        {
+            category: "还有一天就放假了",
+            videos: [
+                { name: "【兄贵】青花瓷", url: "https://wwbqj.lanzout.com/ij6sO3hzs4ng" },
+                { name: "【兄贵】Monody", url: "https://wwbqj.lanzout.com/irZDK3hzrt1i" },
+                { name: "【原创曲】Boy Next Door", url: "https://wwbqj.lanzout.com/i0wk43hzrhfa" },
+                { name: "Van太平洋（完整重制版）", url: "https://wwbqj.lanzout.com/iJqP63hzrgih" }
+            ]
+        },
+        {
+            category: "哦呼w",
+            videos: [
+                { name: "【哲学】Megalo Box", url: "https://wwbqj.lanzout.com/iRc4D3hzsmxe" },
+                { name: "【哲学】女♂神异闻录", url: "https://wwbqj.lanzout.com/i1e243hzsmta" },
+                { name: "【哲学】绝地求生Dark逃♂杀", url: "https://wwbqj.lanzout.com/iYidZ3hzsm8j" },
+                { name: "哲学冲♂刺", url: "https://wwbqj.lanzout.com/iLDrm3hzslza" }
+            ]
+        },
+        {
+            category: "白勺啊达",
+            videos: [
+                { name: "【兄贵】哲学镇-新日暮里童话世界", url: "https://wwbqj.lanzout.com/ivLq63hzr71g" },
+                { name: "【戏腔】新贵妃醉酒", url: "https://wwbqj.lanzout.com/ieopr3hzr6dc" },
+                { name: "【鬼畜大电影】Van♂豆先生的大灾难", url: "https://wwbqj.lanzout.com/im7893hzr5ud" },
+                { name: "我有一个摔跤♂朋友", url: "https://wwbqj.lanzout.com/iXaPG3hzr5eh" },
+                { name: "tik♂tok", url: "https://wwbqj.lanzout.com/iXKaG3hzr4kh" }
+            ]
+        },
+        {
+            category: "爱穹妹的小浪浪",
+            videos: [
+                { name: "【哲学♂电音】Li♂fe", url: "https://wwbqj.lanzout.com/ilxkO3hzr48f" },
+                { name: "【哲学♂电音】Running♂Away", url: "https://wwbqj.lanzout.com/iGYad3hzr45c" },
+                { name: "【哲学♂电音】Sun♂burst", url: "https://wwbqj.lanzout.com/ib7G23hzr3yf" },
+                { name: "【兄贵】热舞", url: "https://wwbqj.lanzout.com/iWTnL3hzr3wd" },
+                { name: "这个电音有点♂骚", url: "https://wwbqj.lanzout.com/iQ6x13hzr3ri" },
+                { name: "新日暮里舞王", url: "https://wwbqj.lanzout.com/iAI4P3hzr3ja" },
+                { name: "新日暮里电音 FiveHours", url: "https://wwbqj.lanzout.com/iAx7t3hzr3bc" },
+                { name: "香蕉的♂微笑", url: "https://wwbqj.lanzout.com/i8BP53hzr2xi" },
+                { name: "西部♂牛仔", url: "https://wwbqj.lanzout.com/iPfMB3hzr2sd" },
+                { name: "上帝是个女♂孩", url: "https://wwbqj.lanzout.com/iBd2V3hzr2qb" },
+                { name: "热舞", url: "https://wwbqj.lanzout.com/i1Y9l3hzr2lg" },
+                { name: "青花瓷", url: "https://wwbqj.lanzout.com/iD3GQ3hzr28d" },
+                { name: "你可曾听过如此带感的哲♂学", url: "https://wwbqj.lanzout.com/i2M7Y3hzr1uj" },
+                { name: "黑凤梨", url: "https://wwbqj.lanzout.com/ixwq33hzr1ih" },
+                { name: "嗨♂到爆", url: "https://wwbqj.lanzout.com/iUsYe3hzr18h" },
+                { name: "对你爱不van", url: "https://wwbqj.lanzout.com/iOvOR3hzr0ve" },
+                { name: "电音♂之王", url: "https://wwbqj.lanzout.com/iOkU63hzr0oh" },
+                { name: "当灵魂遇上新日暮里", url: "https://wwbqj.lanzout.com/icVNF3hzr0ib" }
+            ]
+        },
+        {
+            category: "泽野螳螂",
+            videos: [
+                { name: "【哲学】蕉忍♂疾风传", url: "https://wwbqj.lanzout.com/ijbJR3hzqwgf" },
+                { name: "【哲学】鲜烈龙", url: "https://wwbqj.lanzout.com/i2r8E3hzqw6f" },
+                { name: "【兄贵】康熙♂王朝", url: "https://wwbqj.lanzout.com/iEIJw3hzqvve" },
+                { name: "【兄贵】亮♂剑", url: "https://wwbqj.lanzout.com/iVVHl3hzqvmf" },
+                { name: "【兄贵】游戏♂王", url: "https://wwbqj.lanzout.com/i5hCP3hzqtfg" },
+                { name: "【兄贵】碟中♂谍", url: "https://wwbqj.lanzout.com/iOyBa3hzquob" },
+                { name: "【成龙×Van様】神♂话——禁断的千年之约", url: "https://wwbqj.lanzout.com/iBqfu3hzqsza" },
+                { name: "中国♂功夫", url: "https://wwbqj.lanzout.com/iyR7I3hzqrrg" },
+                { name: "葬爱♂家族", url: "https://wwbqj.lanzout.com/iwWPy3hzqr7g" },
+                { name: "夜的♂第七章", url: "https://wwbqj.lanzout.com/ihNfe3hzqqmf" },
+                { name: "小燕子", url: "https://wwbqj.lanzout.com/ipVjN3hzqq5i" },
+                { name: "西游记♂续", url: "https://wwbqj.lanzout.com/iYO8j3hzqpyb" },
+                { name: "武士之♂魂", url: "https://wwbqj.lanzout.com/i585z3hzqp8f" },
+                { name: "童♂年", url: "https://wwbqj.lanzout.com/iNWaD3hzqowd" },
+                { name: "天线♂宝宝（对比版）", url: "https://wwbqj.lanzout.com/i3RHa3hzqoof" },
+                { name: "水浒♂传", url: "https://wwbqj.lanzout.com/iESuD3hzqo9a" },
+                { name: "世界♂杯", url: "https://wwbqj.lanzout.com/iKhrq3hzqnxi" },
+                { name: "时代♂在召唤", url: "https://wwbqj.lanzout.com/inDVg3hzqnje" },
+                { name: "生日♂快乐", url: "https://wwbqj.lanzout.com/imCAC3hzqn9e" },
+                { name: "上海♂滩", url: "https://wwbqj.lanzout.com/iHjlW3hzqn6b" },
+                { name: "山路十八♂弯", url: "https://wwbqj.lanzout.com/iDrrh3hzqmsh" },
+                { name: "千里♂之外", url: "https://wwbqj.lanzout.com/iN3nE3hzqmba" },
+                { name: "漂♂移（无改版）", url: "https://wwbqj.lanzout.com/iOXfl3hzqm2b" },
+                { name: "漂♂移", url: "https://wwbqj.lanzout.com/i4adR3hzqlud" },
+                { name: "漂移（无修）", url: "https://wwbqj.lanzout.com/iXWwr3hzqlgj" },
+                { name: "卖汤♂圆", url: "https://wwbqj.lanzout.com/iSrmv3hzqkyb" },
+                { name: "卖报♂歌", url: "https://wwbqj.lanzout.com/iPeZq3hzqkqd" },
+                { name: "流星♂花园", url: "https://wwbqj.lanzout.com/i9vxL3hzqkpc" },
+                { name: "快乐♂性球", url: "https://wwbqj.lanzout.com/iFipm3hzqk6d" },
+                { name: "惊天♂魔盗团", url: "https://wwbqj.lanzout.com/i9o133hzqjxe" },
+                { name: "江♂南", url: "https://wwbqj.lanzout.com/idgv33hzqjkb" },
+                { name: "吉祥♂三宝", url: "https://wwbqj.lanzout.com/im69c3hzqj8j" },
+                { name: "霍元♂甲", url: "https://wwbqj.lanzout.com/iEd1b3hzqivg" },
+                { name: "黄土♂高坡", url: "https://wwbqj.lanzout.com/ieMtH3hzqibg" },
+                { name: "花田♂错", url: "https://wwbqj.lanzout.com/i7H873hzqi0f" },
+                { name: "红♂豆", url: "https://wwbqj.lanzout.com/i18d73hzqhrg" },
+                { name: "虹猫蓝兔七侠传", url: "https://wwbqj.lanzout.com/idJY93hzqgng" },
+                { name: "high♂歌", url: "https://wwbqj.lanzout.com/iEkyL3hzqfyb" },
+                { name: "好日♂子", url: "https://wwbqj.lanzout.com/i35Kc3hzqfqd" },
+                { name: "过♂年", url: "https://wwbqj.lanzout.com/i21np3hzqfhe" },
+                { name: "刚好♂遇见你", url: "https://wwbqj.lanzout.com/ijeRz3hzqf6d" },
+                { name: "富士山♂下", url: "https://wwbqj.lanzout.com/izSpx3hzqehi" },
+                { name: "刀马♂旦 原版", url: "https://wwbqj.lanzout.com/i5pUY3hzqe1c" },
+                { name: "春天♂在哪里", url: "https://wwbqj.lanzout.com/iwew43hzqdni" },
+                { name: "丑♂八怪", url: "https://wwbqj.lanzout.com/iXYNR3hzqdje" },
+                { name: "超人", url: "https://wwbqj.lanzout.com/ik1oC3hzqd6b" },
+                { name: "曹♂操", url: "https://wwbqj.lanzout.com/i6Xfm3hzqcyd" },
+                { name: "北京♂一夜", url: "https://wwbqj.lanzout.com/iWKaE3hzqcpe" },
+                { name: "包青♂天", url: "https://wwbqj.lanzout.com/iKwSP3hzqc8h" }
+            ]
+        },
+        {
+            category: "痒局长",
+            videos: [
+                { name: "【Fa楽器】寄生兽试听-Next♂To♂Door", url: "https://wwbqj.lanzout.com/i2Pdf3hzqali" },
+                { name: "【哲学】名侦探柯南剧场版预告：工藤新一的消失", url: "https://wwbqj.lanzout.com/ilN9t3hzqahe" },
+                { name: "【兄贵】加勒比海盗6预告：无尽的黑♂暗", url: "https://wwbqj.lanzout.com/iQca23hzqada" },
+                { name: "【兄贵】盯♂裆♂猫 BOY A梦", url: "https://wwbqj.lanzout.com/iymlp3hzqa9g" },
+                { name: "【兄贵】千年♂Dark一回", url: "https://wwbqj.lanzout.com/iMRrd3hzqa6d" },
+                { name: "【全明星】PY买卖【合作】", url: "https://wwbqj.lanzout.com/iAQsJ3hzq9zg" },
+                { name: "【全明星】上帝是个比利", url: "https://wwbqj.lanzout.com/ieIwP3hzq9sj" },
+                { name: "【鼓点音乐鉴赏】卡农（节选）", url: "https://wwbqj.lanzout.com/iRldV3hzq9kb" },
+                { name: "哲学♂联盟", url: "https://wwbqj.lanzout.com/i77j53hzq9hi" },
+                { name: "演员", url: "https://wwbqj.lanzout.com/i0RiM3hzq9ab" },
+                { name: "扭♂尻♂歌", url: "https://wwbqj.lanzout.com/i9ClK3hzq97i" },
+                { name: "灌篮高手：兄想大声说爱你", url: "https://wwbqj.lanzout.com/ibvjr3hzq96h" }
+            ]
+        },
+        {
+            category: "相忘于新日墓里",
+            videos: [
+                { name: "【Lady♂FaFa】Bad Romance", url: "https://wwbqj.lanzout.com/i1unH3hzq7gf" },
+                { name: "【FA】Van様在那一角落患过伤风", url: "https://wwbqj.lanzout.com/iNZpf3hzq6ra" },
+                { name: "【兄贵】Lady♂FaFa", url: "https://wwbqj.lanzout.com/iqN0a3hzq6eh" },
+                { name: "[兄贵]Kickstart♂My♂Ass", url: "https://wwbqj.lanzout.com/i5vzQ3hzq64h" },
+                { name: "兄贵 yeyeye", url: "https://wwbqj.lanzout.com/i77Wo3hzq63g" },
+                { name: "兄贵 red zone", url: "https://wwbqj.lanzout.com/iPSLg3hzq61e" },
+                { name: "兄贵 boynextdoor", url: "https://wwbqj.lanzout.com/ifV183hzq5zc" },
+                { name: "爱♂你", url: "https://wwbqj.lanzout.com/iFTgh3hzq5yb" }
+            ]
+        },
+        {
+            category: "瞬间爆炸型LowSing",
+            videos: [
+                { name: "【Fa乐器】命运交响曲", url: "https://wwbqj.lanzout.com/iBezi3hzq4wd" },
+                { name: "【哲学】我的世♂界", url: "https://wwbqj.lanzout.com/iDpXY3hzq4pg" },
+                { name: "【贝多Van】致爱丽丝", url: "https://wwbqj.lanzout.com/iTAZU3hzq4lc" },
+                { name: "愉悦", url: "https://wwbqj.lanzout.com/iVbYd3hzq4gh" },
+                { name: "雅克兰迪狂想", url: "https://wwbqj.lanzout.com/ihglL3hzq4de" },
+                { name: "听过这么可爱的哲学吗", url: "https://wwbqj.lanzout.com/iRDwV3hzq4ab" },
+                { name: "听过这么带劲的哲学吗", url: "https://wwbqj.lanzout.com/i0cWB3hzq47i" },
+                { name: "守望♂先锋 (mp4)", url: "https://wwbqj.lanzout.com/i9tkP3hzq41c" },
+                { name: "听过这么滑稽的哲♂学吗？", url: "https://wwbqj.lanzout.com/izXq93hzq45g" },
+                { name: "听过这么爆炸的哲学吗", url: "https://wwbqj.lanzout.com/iHw8U3hzq43e" },
+                { name: "守望♂先锋 (blv)", url: "https://wwbqj.lanzout.com/iJfra3hzq40b" },
+                { name: "宁静", url: "https://wwbqj.lanzout.com/iNB7u3hzq3yj" },
+                { name: "For Billy Herrington", url: "https://wwbqj.lanzout.com/iO0w93hzq3vg" },
+                { name: "动感", url: "https://wwbqj.lanzout.com/iXcaB3hzq3oj" },
+                { name: "常回家看看", url: "https://wwbqj.lanzout.com/ibjFH3hzq3lg" },
+                { name: "candyland", url: "https://wwbqj.lanzout.com/iGsJI3hzq3fa" }
+            ]
+        }
+    ];
+
+    const contentArea = document.getElementById('content-area');
+    const searchInput = document.getElementById('searchInput');
+    const anchorNav = document.getElementById('anchorNav');
+    const navWrapper = document.getElementById('navWrapper');
+
+    // 切换导航栏折叠
+    function toggleNav() {
+        navWrapper.classList.toggle('expanded');
+    }
+
+    function render(filter = '') {
+        contentArea.innerHTML = '';
+        anchorNav.innerHTML = '';
+        const keyword = filter.toLowerCase();
+
+        data.forEach((section, index) => {
+            const isCategoryMatch = section.category.toLowerCase().includes(keyword);
+            const filteredVideos = isCategoryMatch 
+                ? section.videos 
+                : section.videos.filter(v => v.name.toLowerCase().includes(keyword));
+            
+            if (filteredVideos.length > 0) {
+                const sectionId = `section-${index}`;
+                
+                // 锚点跳转
+                const anchor = document.createElement('a');
+                anchor.href = `#${sectionId}`;
+                anchor.className = 'anchor-link';
+                anchor.textContent = section.category;
+                anchor.onclick = () => {
+                   // 点击锚点后自动收起导航
+                   navWrapper.classList.remove('expanded');
+                };
+                anchorNav.appendChild(anchor);
+
+                const sectionEl = document.createElement('div');
+                sectionEl.className = 'section-container';
+                sectionEl.id = sectionId;
+                
+                if (keyword !== '') {
+                    sectionEl.classList.add('active');
+                }
+                
+                const headerEl = document.createElement('div');
+                headerEl.className = 'section-header';
+                headerEl.onclick = () => sectionEl.classList.toggle('active');
+                
+                headerEl.innerHTML = `
+                    <div class="section-title">
+                        ${section.category}
+                        <span class="video-count">${filteredVideos.length}</span>
+                    </div>
+                    <div class="toggle-icon">▼</div>
+                `;
+                
+                const contentWrapper = document.createElement('div');
+                contentWrapper.className = 'section-content';
+                
+                const gridEl = document.createElement('div');
+                gridEl.className = 'video-grid';
+                
+                filteredVideos.forEach(video => {
+                    const a = document.createElement('a');
+                    a.href = video.url;
+                    a.className = 'video-item';
+                    a.target = '_blank';
+                    a.innerHTML = `<div class="video-title">${video.name}</div>`;
+                    gridEl.appendChild(a);
+                });
+
+                contentWrapper.appendChild(gridEl);
+                sectionEl.appendChild(headerEl);
+                sectionEl.appendChild(contentWrapper);
+                contentArea.appendChild(sectionEl);
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', (e) => render(e.target.value));
+    render();
+</script>
+
+</body>
+</html>
