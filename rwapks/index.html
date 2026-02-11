@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="铁锈战争下载,铁锈战争全版本,铁锈战争汉化版,铁锈战争apk,铁锈战争,Rusted Warfare Download,Rusted Warfare apk">
+    <meta name="description" content="铁锈战争全版本资源站，提供历史版本、最新测试版，仅供体验。">
+    <title>铁锈战争全版本下载 - RWAPKS</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #1a252f;
+            --accent-color: #f39c12;
+            --light-bg: #ecf0f1;
+        }
+        
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #2c3e50;
+        }
+        
+        .sticky-top {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .navbar-brand { font-weight: 700; color: var(--primary-color) !important; }
+
+        .table-container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 15px;
+        }
+
+        .btn-rw {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-rw:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 优化后的正版引导样式 */
+        .alert-rw {
+            background-color: #fff;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .store-link {
+            font-size: 0.85rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+        .store-steam { background: #1b2838; color: #66c0f4 !important; }
+        .store-google { background: #4285f4; color: #fff !important; }
+        .store-apple { background: #000; color: #fff !important; }
+        .store-link:hover { opacity: 0.8; transform: scale(1.05); }
+
+        h5 { font-weight: 700; margin-top: 1.5rem; display: flex; align-items: center; }
+        h5 i { margin-right: 10px; color: var(--accent-color); }
+
+        @media (max-width: 768px) {
+            .mobile-hide { display: none; }
+        }
+
+        #backTop {
+            position: fixed; bottom: 20px; right: 20px;
+            width: 45px; height: 45px; border-radius: 50%;
+            background: var(--primary-color); color: white;
+            display: none; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 1000; border: none;
+        }
+
+        .ver-link { color: var(--primary-color); cursor: pointer; text-decoration: none; }
+        .ver-link:hover { color: var(--accent-color); text-decoration: underline; }
+        #logContent { white-space: pre-wrap; background: #f8f9fa; padding: 15px; border-radius: 8px; }
+
+        @keyframes pulse-red {
+            0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(220, 53, 69, 0); }
+            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+        }
+        .badge-new {
+            background-color: #dc3545;
+            animation: pulse-red 2s infinite;
+            border: 1px solid #fff;
+            font-size: 0.65rem !important;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sticky-top py-2 mb-3">
+    <div class="container d-flex align-items-center">
+        <a href="/" class="text-decoration-none me-auto">
+            <span class="navbar-brand mb-0"><i class="fa fa-crosshairs"></i> 铁锈战争全版本库</span>
+        </a>
+        <div class="btn-group">
+            <button class="btn btn-outline-dark btn-sm me-2" onclick="alert('站点公告：欢迎来到铁锈战争资源站！')">
+                <i class="fa fa-bullhorn"></i> 公告
+            </button>
+            <button class="btn btn-rw btn-sm" onclick="copyShare()">
+                <i class="fa fa-share-alt"></i> 分享
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <main>
+        <div class="alert alert-rw d-flex align-items-center mb-4 p-3" role="alert">
+            <div class="flex-shrink-0 me-3 d-none d-md-block">
+                <i class="fa fa-shield fa-2x" style="color: var(--accent-color);"></i>
+            </div>
+            <div class="w-100">
+                <h5 class="m-0 mb-1" style="font-size: 1rem;">请支持正版</h5>
+                <p class="mb-2 small text-muted">本站资源仅供交流学习，请通过以下渠道购买正版获得更好体验：</p>
+                <div class="d-flex flex-wrap">
+                    <a href="https://store.steampowered.com/app/647960" target="_blank" class="store-link store-steam">
+                        <i class="fa fa-steam me-1"></i> Steam
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.corrodinggames.rts" target="_blank" class="store-link store-google">
+                        <i class="fa fa-google me-1"></i> Google Play
+                    </a>
+                    <a href="https://apps.apple.com/app/rusted-warfare-rts/id1514329124" target="_blank" class="store-link store-apple">
+                        <i class="fa fa-apple me-1"></i> App Store
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <h5><i class="fa fa-search"></i> 寻找版本</h5>
+        <div class="input-group mb-4 shadow-sm">
+            <input type="text" class="form-control border-0 p-3" id="searchInput" placeholder="例如：1.15 或 0.7...">
+            <button class="btn btn-rw px-4" type="button" onclick="searchVersion()">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+
+        <h5><i class="fa fa-tasks"></i> 版本列表</h5>
+        <div class="table-container table-responsive">
+            <table class="table table-hover align-middle" id="versionTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>版本号</th>
+                        <th>分类</th>
+                        <th class="mobile-hide">更新日期</th>
+                        <th>大小</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr id="loadingRow">
+                        <td colspan="6" class="text-center py-4">
+                            <div class="spinner-border spinner-border-sm text-primary"></div> 正在加载版本数据...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer class="mt-5 mb-4 text-center">
+        <hr>
+        <p class="text-muted small">
+            Powered By <b>RWAPKS</b> | 鸣谢：铁锈战争吧<br>
+            <i class="fa fa-code"></i> 本站已通过 SSL 安全加密
+        </p>
+    </footer>
+</div>
+
+<div class="modal fade" id="logModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="logTitle">版本详情</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="logContent" class="small"></div>
+            </div>
+            <div class="modal-footer">
+                <a id="logDownload" href="#" class="btn btn-rw btn-sm w-100">立即下载</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <i class="fa fa-arrow-up"></i>
+</button>
+
+<script src="https://cdn.staticfile.org/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    let allVersions = [];
+
+    async function init() {
+        try {
+            const response = await fetch('versions.json?t=' + new Date().getTime());
+            allVersions = await response.json();
+            renderTable(allVersions);
+        } catch (error) {
+            console.error("加载失败:", error);
+            document.getElementById('tableBody').innerHTML = '<tr><td colspan="6" class="text-center text-danger">无法加载版本数据</td></tr>';
+        }
+    }
+
+    function renderTable(data) {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+        if (data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center">未找到相关版本</td></tr>';
+            return;
+        }
+
+        let lastMajor = ""; 
+        data.forEach((item, index) => {
+            const currentMajor = item.version.substring(0, 4); 
+            if (lastMajor !== currentMajor && lastMajor !== "") {
+                tbody.innerHTML += `
+                    <tr class="table-light">
+                        <td colspan="6" class="small fw-bold text-muted py-1 ps-3" style="background:#f8f9fa">
+                            <i class="fa fa-folder-open-o"></i> ${currentMajor} 时代版本
+                        </td>
+                    </tr>`;
+            }
+            lastMajor = currentMajor;
+
+            let versionDisplay = `<b>${item.version}</b>`;
+            let latestTag = "";
+
+            if (item.version === "v1.15" && item.type === "正式版") {
+                latestTag = `<span class="badge rounded-pill badge-new mb-1"><i class="fa fa-bolt"></i> 最新版</span><br>`;
+                versionDisplay = `<b class="text-danger" style="font-size: 1.1rem;">${item.version}</b>`;
+            }
+
+            let badgeColor = 'bg-secondary';
+            if (item.type.includes('正式')) badgeColor = 'bg-success';
+            if (item.type.includes('测试')) badgeColor = 'bg-warning text-dark';
+            if (item.type.includes('修订') || item.type.includes('修复')) badgeColor = 'bg-info text-dark';
+            if (item.type.includes('Alpha')) badgeColor = 'bg-dark';
+
+            let row = `
+                <tr>
+                    <td>
+                        ${latestTag}
+                        <a href="javascript:void(0)" class="ver-link" onclick="showLog(${index})">${versionDisplay}</a>
+                    </td>
+                    <td><span class="badge ${badgeColor}">${item.type}</span></td>
+                    <td class="mobile-hide">${item.date}</td>
+                    <td>${item.size}</td>
+                    <td><i class="fa fa-info-circle text-primary"></i> ${item.status}</td>
+                    <td><a href="download.html?v=${encodeURIComponent(item.version)}" class="btn btn-rw btn-sm">详情</a></td>
+                </tr>`;
+            tbody.innerHTML += row;
+        });
+    }
+
+    function searchVersion() {
+        const keyword = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = allVersions.filter(item => 
+            item.version.toLowerCase().includes(keyword) || 
+            item.type.toLowerCase().includes(keyword)
+        );
+        renderTable(filtered);
+    }
+
+    function showLog(index) {
+        const item = allVersions[index];
+        document.getElementById('logTitle').innerText = item.version + " 简报";
+        document.getElementById('logContent').innerText = item.logs || "暂无该版本的详细更新说明。";
+        document.getElementById('logDownload').href = "download.html?v=" + encodeURIComponent(item.version);
+        const myModal = new bootstrap.Modal(document.getElementById('logModal'));
+        myModal.show();
+    }
+
+    function copyShare() {
+        const text = "铁锈战争全版本资源站，apk不限速下载！链接：" + window.location.href;
+        navigator.clipboard.writeText(text).then(() => alert("分享链接已复制到剪贴板！"));
+    }
+
+    window.onscroll = function() {
+        let btn = document.getElementById("backTop");
+        if (btn) btn.style.display = (document.documentElement.scrollTop > 300) ? "flex" : "none";
+    };
+
+    document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') searchVersion(); });
+    init();
+</script>
+</body>
+</html>
