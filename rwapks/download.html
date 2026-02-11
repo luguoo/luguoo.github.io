@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>资源载入中 - RWAPKS</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        :root { --primary-color: #2c3e50; --accent-color: #f39c12; --bg: #f4f7f6; }
+        body { background-color: var(--bg); font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        .sticky-top { background: #fff; border-bottom: 2px solid var(--primary-color); }
+        .rdbox { border-radius: 15px; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.05); background: #fff; }
+        
+        /* 下载按钮样式 */
+        .btn-rw { background: var(--primary-color); color: white; border-radius: 10px; font-weight: 700; padding: 12px; transition: 0.3s; border: none; width: 100%; }
+        .btn-rw:hover { background: var(--accent-color); color: white; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3); }
+        
+        /* 正版购买按钮样式 */
+        .store-btn { display: flex; align-items: center; padding: 10px 15px; border-radius: 10px; margin-bottom: 10px; text-decoration: none !important; font-weight: 600; transition: 0.2s; color: #fff !important; }
+        .store-btn i { font-size: 1.2rem; margin-right: 12px; width: 20px; text-align: center; }
+        .store-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
+        
+        .bg-steam { background: #1b2838; }
+        .bg-google { background: #4285f4; }
+        .bg-apple { background: #000; }
+
+        .alert-rw { border-left: 5px solid var(--accent-color); background: #f8f9fa; border-radius: 10px; }
+        .zoom-anim { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% {transform:scale(1)} 50% {transform:scale(1.03)} 100% {transform:scale(1)} }
+        
+        .game-icon { width: 80px; height: 80px; object-fit: cover; border-radius: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<nav class="sticky-top py-2 mb-4">
+    <div class="container d-flex align-items-center">
+        <a href="index.html" class="text-decoration-none text-dark fw-bold"><i class="fa fa-arrow-left"></i> 返回列表</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="mb-4">
+        <span class="badge bg-success p-2 px-3" id="v-type">--</span>
+        <h2 class="fw-bold mt-2" id="v-title">Rusted Warfare</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card rdbox p-4 mb-4">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://youke.xn--y7xa690gmna.cn/s1/2026/02/11/698c41953fd1e.webp" class="game-icon me-3">
+                    <div>
+                        <div class="h5 m-0 fw-bold" id="v-info-name">--</div>
+                        <small class="text-muted" id="v-info-size">载入配置中...</small>
+                    </div>
+                </div>
+                <div class="alert alert-rw py-2 mb-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><i class="fa fa-key me-2"></i> <b id="v-pwd">提取密码：--</b></span>
+                        <button class="btn btn-sm btn-outline-primary border-0" onclick="copyPwd()">复制</button>
+                    </div>
+                </div>
+            </div>
+
+            <h5><i class="fa fa-download text-warning me-2"></i>获取作战资源</h5>
+            <div class="mb-4">
+                <button class="btn btn-rw btn-lg shadow zoom-anim" onclick="goDownload()">
+                    <i class="fa fa-cloud-download"></i> 立即通过蓝奏云下载
+                </button>
+            </div>
+            
+            <div class="card rdbox p-3 mb-4">
+                <h6 class="fw-bold"><i class="fa fa-info-circle me-2"></i>安装必读</h6>
+                <p class="small text-muted mb-0">
+                    1. <b>密码复制：</b>点击下载会自动复制提取码，请在蓝奏云页面粘贴。<br>
+                    2. <b>覆盖安装：</b>建议保留旧版本直接覆盖，以防游戏存档丢失。<br>
+                    3. <b>安全提示：</b>部分系统会拦截安装，请选择“信任”或“忽略”。
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card rdbox p-3 mb-4">
+                <h6 class="fw-bold mb-3"><i class="fa fa-shopping-cart text-danger me-2"></i>支持正版开发者</h6>
+                
+                <a href="https://store.steampowered.com/app/647960" target="_blank" class="store-btn bg-steam">
+                    <i class="fa fa-steam"></i> Steam 商店 (PC)
+                </a>
+                
+                <a href="https://play.google.com/store/apps/details?id=com.corrodinggames.rts" target="_blank" class="store-btn bg-google">
+                    <i class="fa fa-google"></i> Google Play (安卓)
+                </a>
+                
+                <a href="https://apps.apple.com/app/rusted-warfare-rts/id1514329124" target="_blank" class="store-btn bg-apple">
+                    <i class="fa fa-apple"></i> App Store (iOS)
+                </a>
+                
+                <hr>
+                <div class="small text-muted">
+                    <i class="fa fa-heart text-danger"></i> 正版可获得：<br>
+                    • 自动更新、联机大厅无限制<br>
+                    • 创意工坊海量 Mod 资源
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentUrl = "";
+    let currentPwd = "";
+
+    async function loadDetail() {
+        const params = new URLSearchParams(window.location.search);
+        const ver = params.get('v');
+        if(!ver) { window.location.href="index.html"; return; }
+
+        try {
+            const res = await fetch('versions.json?t=' + new Date().getTime());
+            const data = await res.json();
+            const info = data.find(i => i.version === ver);
+
+            if(info) {
+                document.title = info.version + " 下载 - RWAPKS";
+                document.getElementById('v-type').innerText = info.type;
+                
+                // 自动切换标签颜色
+                if(info.type.includes('正式')) document.getElementById('v-type').className = "badge bg-success p-2 px-3";
+                else if(info.type.includes('试玩')) document.getElementById('v-type').className = "badge bg-primary p-2 px-3";
+                else document.getElementById('v-type').className = "badge bg-warning text-dark p-2 px-3";
+
+                document.getElementById('v-title').innerText = "版本详情：" + info.version;
+                document.getElementById('v-info-name').innerText = "铁锈战争 " + info.version;
+                document.getElementById('v-info-size').innerText = "日期：" + info.date + " | 大小：" + info.size;
+                
+                currentPwd = info.status.replace("提取码: ", "").trim();
+                document.getElementById('v-pwd').innerText = "提取密码：" + currentPwd;
+                currentUrl = info.url;
+            }
+        } catch (e) { console.error(e); }
+    }
+
+    function copyPwd() {
+        if(!currentPwd) return;
+        navigator.clipboard.writeText(currentPwd);
+        alert("密码 " + currentPwd + " 已复制！");
+    }
+
+    function goDownload() {
+        if(!currentUrl) return;
+        copyPwd();
+        setTimeout(() => { window.open(currentUrl, '_blank'); }, 600);
+    }
+    loadDetail();
+</script>
+</body>
+</html>
