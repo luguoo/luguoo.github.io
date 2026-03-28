@@ -38,7 +38,8 @@ body {
 }
 
 #write { 
-    margin: 60px auto 40px; padding: 25px; 
+    margin: 60px auto 40px; 
+    padding: 25px; 
     max-width: 860px; 
     background: var(--box-bg);
     border-radius: 8px; 
@@ -47,7 +48,7 @@ body {
     position: relative;
 }
 
-/* 还原通透感的背景模式：去掉模糊，保持轻微透明 */
+/* 还原通透背景 */
 html.bg-mode #write { 
     background: rgba(255, 255, 255, 0.7) !important; 
 }
@@ -56,9 +57,15 @@ html.dark-mode #write { background: var(--box-bg) !important; }
 h1 { font-size: 2.2em; border-bottom: 1px solid var(--border-color); margin-top: 0; padding-bottom: 10px; }
 a { color: var(--link-color); text-decoration: none; }
 blockquote { border-left: 4px solid var(--border-color); padding: 0 15px; color: #777; }
-img { max-width: 100%; border-radius: 4px; }
 
-/* 悬浮工具栏 */
+/* 图片基础设置 */
+img { max-width: 100%; height: auto; border-radius: 4px; }
+
+/* 底部特定图片放大处理 */
+.footer-img-luguo { width: 150px; }
+.footer-img-donate { width: 180px; margin-top: 15px; }
+
+/* 工具栏按钮 */
 .top-nav-tools { position: fixed; top: 15px; right: 15px; display: flex; gap: 10px; z-index: 1001; }
 .nav-btn { width: 38px; height: 38px; border-radius: 6px; background: var(--banner-bg); color: var(--text-color); border: 1px solid var(--border-color); cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
@@ -75,7 +82,7 @@ img { max-width: 100%; border-radius: 4px; }
 .banner-content { width: 90%; max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
 .banner-close-btn { background: #f44336; color: white; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
 
-/* 彩蛋 */
+/* 棍母 */
 .rainbow-text {
     background-image: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000);
     background-size: 200% auto;
@@ -87,8 +94,15 @@ img { max-width: 100%; border-radius: 4px; }
 }
 @keyframes rainbow { to { background-position: 200% center; } }
 
+/* 移动端精准适配 */
 @media screen and (max-width: 600px) {
-    #write { width: 90%; margin-top: 50px; padding: 20px; }
+    #write { 
+        width: 94%; /* 调大比例，让内容区更宽 */
+        margin-top: 50px; 
+        padding: 15px; /* 减小内边距，给图片腾地方 */
+    }
+    .footer-img-luguo { width: 130px; } /* 移动端路过图稍大 */
+    .footer-img-donate { width: 160px; } /* 移动端打赏图稍大 */
     .banner-content { flex-direction: column; gap: 10px; }
 }
 </style>
@@ -104,10 +118,10 @@ img { max-width: 100%; border-radius: 4px; }
 
 <div id="notice-banner">
     <div class="banner-content">
-        <div class="banner-text"><strong>📢 公告：</strong>背景已还原通透效果。单击画框换图，双击回归纯白。</div>
+        <div class="banner-text"><strong>📢 小tip：</strong>新版背景默认随机，双击画框按钮切换经典模式，单击画框可切换背景图，单击月亮切换夜间模式，妈妈再也不怕我被白背景亮瞎眼辣（bushi</div>
         <div class="banner-ops">
-            <label style="font-size: 12px;"><input type="checkbox" id="no-more-notice"> 不再弹出</label>
-            <button class="banner-close-btn" id="banner-close">不要再说了>_<</button>
+            <label style="font-size: 12px;"><input type="checkbox" id="no-more-notice"> 以后不再弹出</label>
+            <button class="banner-close-btn" id="banner-close">不要再说了>_< ></button>
         </div>
     </div>
 </div>
@@ -115,23 +129,290 @@ img { max-width: 100%; border-radius: 4px; }
 <div class="overlay">
     <div id='write'>
         <h1>稿件博物馆</h1>
-        <p style="opacity: 0.7;">最后更新: 26/1/31 by我只是路过的呀</p>
-        <p><a href='../about.html'>这里有一些说明...</a></p>
-        
-        <div style="margin: 15px 0;">
-            <a href='join_group.html'><img src="../pic/welcome.jpg" onerror="this.style.display='none'"></a>
-        </div>
+        <p style="opacity: 0.7;">最后更新于 26/3/28 by我只是路过的呀</p>
+<p><span><a href='join_group.html'><img src="../pic/welcome.jpg"></a></p><hr />
 
-        <hr />
-        <p>av277028405 P1-P151 <a href='../video/ocho.html'>“创价学会猎奇合集”</a></p>
-        <p><strong>av10492</strong></p>
-        <blockquote>
-            <p>P1 <a href='#'>久本先进国/死了</a></p>
-            </blockquote>
+
+<p><span>av277028405 P1-P151 </span><a href='../video/ocho.html'><span>“创价学会猎奇合集”</span></a></p>
+
+<p><strong><span>av10492</span></strong></p><blockquote><p><span>P1 </span><a href='https://huanmingzhuo.github.io/video/vid/10492/01.mp4'><span>久本先进国/死了</span></a></p>
+
+<p><span>P2 </span><a href='https://huanmingzhuo.github.io/video/vid/10492/02.mp4'><span>久本薯饼/较猎奇(第一集)</span></a>
+<a href='https://huanmingzhuo.github.io/video/vid/10492/02-1.mp4'><span>(第二集)</span></a></p>
+
+<p><span>P3 </span><a href='https://huanmingzhuo.github.io/video/vid/10492/03.mp4'><span>绝妙的治愈/全员猎奇(第一集)</span></a>
+<a href='https://huanmingzhuo.github.io/video/vid/10492/03-1.mp4'><span>(第二集)</span></a></p>
+
+<p><span>P4 </span><a href='https://huanmingzhuo.github.io/video/vid/10492/04.mp4'><span>Otso-Otso/惊悚式猎奇</span></a></p>
+
+<p><span>P5 </span><a href='https://awser124.github.io/av10492/05.mp4'><span>久本杂交/轻度精神猎奇(第一集)</span></a>
+<a href='https://huanmingzhuo.github.io/video/vid/10492/05-1.mp4'><span>(第二集)</span></a></p>
+
+<p><span>P6 </span><a href='https://huanmingzhuo.github.io/video/vid/10492/06.mp4'><span>益虫观察/看完毛骨悚然的猎奇(第一集)</span></a>
+<a href='https://huanmingzhuo.github.io/video/vid/10492/06-1.mp4'><span>(第二集)</span></a></p>
+
+<p><span>P7 </span><a href='https://huanmingzhuo.github.io/video/vid/10492/07.mp4'><span>御本尊过山车/给人留下阴影的惊悚式猎奇</span></a></p>
+
+<p><span>P8 </span><a href='https://huanmingzhuo.github.io/video/vid/10492/08.mp4'><span>超级变变变/令人反感,无法接受的终极猎奇</span></a></p>
+
+
+<p>&nbsp;</p></blockquote><p><strong><span>经典老番:</span></strong></p><blockquote>
+
+<p><a href='https://huanmingzhuo.github.io/video/vid/10492/Others/WPA.mp4'><span>hrhr/某远古的洗脑视频</span></a></p>
+
+<p><a href='https://huanmingzhuo.github.io/video/vid/10492/Others/SM6.mp4'><span>惠方卷</span></a></p>
+
+<p><a href='https://huanmingzhuo.github.io/video/vid/10492/Others/MIKUONION.mp4'><span>miku葱</span></a></p></blockquote>
+
+
+<p><strong><span>高技术力:</span></strong></p><blockquote>
+
+<p><a href='https://bilibili.com/video/av88888'><span>不可视久本 ～ Airmoto of Frenzy</span></a></p>
+
+<p><a href='https://huanmingzhuo.github.io/video/vid/10492/Others/DGRMT.mp4'><span>危险的久本</span></a></p>
+
+
+
+<p><a href='https://huanmingzhuo.github.io/video/vid/10492/Others/RZ_0721.mp4'><span>RZ 0721</span></a></p>
+
+<p><a href='https://xcbgj.github.io/Videos/1020212.mp4'><span>视听禁止(危险的检索词)</span></a></p></blockquote>
+
+<p><strong><span>hrhr领域:</span></strong></p><blockquote>
+
+<p><a href='https://xcbgj.github.io/Videos/危险的hrhr.mp4'><span>危险的hrhr</span></a></p>
+
+<p><a href='../vid/machami_strike_back.mp4'><span>Machami Strike Back</span></a></p>
+
+<p><a href='../vid/sm32117499.mp4'><span>合作单品hrhr</span></a></p>
+
+<p><a href='../vid/オチョブリ.mp4'><span>hrhr的鉴赏</span></a></p></blockquote>
+
+<p><strong><span>高精&猎奇</span></strong></p><blockquote>
+
+<p><a href='../vid/sm4759268.mp4'><span>柴田被高精本感染了</span></a></p>
+
+<p><a href='../vid/sm4759268.mp4'><span>幽灵部的石川</span></a></p>
+
+<p><a href='https://huanmingzhuo.github.io/video/vid/10492/Others/INTENPHO.mp4'><span>密集排布</span></a></p>
+
+<p><a href='https://huanmingzhuo.github.io/video/vid/10492/Others/STORY.mp4'><span>化物语</span></a></p>
+
+<p><a href='https://huanmingzhuo.github.io/video/vid/10492/Others/M.mp4'><span>教主的客串</span></a></p>
+
+<p><a href='https://huanmingzhuo.github.io/video//vid/10492/Others/ASTYLE.mp4'><span>牛的久本虫(a风)</span></a></p>
+
+<p><a href='../vid/cola.mp4'><span>久本可乐(第一集)</span></span><a href='../vid/cola2p.mp4'><span>(第二集)</span></a></p>
+
+<p><a href='https://huanmingzhuo.github.io/video/vid/10492/Others/FRCFRIES.mp4'><span>背后灵薯条</span></a></p>
+
+<p><a href='https://huanmingzhuo.github.io/video/vid/10492/Others/REDBRUSH.mp4'><span>红色刷牙</span></a></p>
+
+<p><a href='https://huanmingzhuo.github.io/video/vid/10492/Others/SXMOTOCT.mp4'><span>交配续(柴田的进化)</span></a></p></blockquote><hr/>
+
+
+<p><strong><span>哔哩哔哩危险地带</span></strong></p>
+<p><span style="color: #C1C1C1"><span>av1</span><a href='../vid/av1.mp4'><span>绿坝绿坝☆河蟹你全家</span></a></p>
+
+<p><span style="color: #C1C1C1"><span>av23 </span><a href='https://huanmingzhuo.github.io/video/vid/archive/00000023.mp4'><span>被蓝蓝路的七变化洗脑后，兴致很高</span></a></span></p>
+
+<p><span>av39 </span><a href='../vid/av39.mp4'><span>坚持下去吧</span></a></p>
+
+<p><span>av106 </span><a href='https://bilibili.com/video/av106'><span>最终鬼畜蓝蓝路</span></a></p>
+
+<p><span>av107 </span><a href='https://bilibili.com/video/av107'><span>最终鬼畜二小姐 </span></a></p>
+
+<p><span>av314 </span><a href='https://bilibili.com/video/av314'><span>电磁炮真是太可爱了</span></a></p>
+
+<p><span>  </span><span style="color: #C1C1C1"><span>av508</span></span><span> </span><span style="color: #C1C1C1"><a href='https://huanmingzhuo.github.io/video/vid/archive/00000508.mp4'><span>【V家】蓝蓝路引发的异变</span></a></span></p>
+
+<p><span>av4028 </span><a href='../vid/av4028.mp4'><span>巡音-Toeto</span></a></p>
+
+<p><span>av5317 </span><a href='https://bilibili.com/video/av5317'><span>【创价圣教】破坏性招式出没注意</span></a></p>
+
+<p><span>  av41630 </span><a href='https://bilibili.com/video/av41630'><span>琪露諾疾行 </span></a></p>
+
+<p><span>  av10429 </span><a href='https://bilibili.com/video/av10429'><span>[万恶之源]葛平 吴克 小光头的由来</span></a></p>
+
+<p><span>  av12450 </span><a href='https://bilibili.com/video/av12450'><span>fuck you all</span></a></p>
+
+<p><span>av16097 </span><a href='../vid/av16097.flv'><span>工口动画×RED ZONE(P1 EROGA ZONE)</span></a></p>
+<a href='../vid/av16097p2.flv'><span>(P2 ERO☆SCENE)</span></a></p>
+
+<p><span>  av25674 </span><a href='https://bilibili.com/video/av25674'><span>琪露諾的完美瞎眼教室</span></a></p>
+
+<p><span>av34471 </span><a href='https://bilibili.com/video/av34471'><span>最终鬼畜乌贼娘</span></a></p>
+
+<p><span>av40162 </span><a href='https://bilibili.com/video/av40162'><span>“吔屎啦，梁非凡”非凡哥原版片段</span></a></p>
+
+<span>  </span><span style="color: #C1C1C1"><span>av53065</span></span><span> </span><a href='https://huanmingzhuo.github.io/video/vid/archive/00053065.mp4'><span>Happy sex!!!!</span></a></p>
+
+<p><span>av53376 </span><a href='https://bilibili.com/video/av53376'><span>【略鬼畜合集】教祖信徒的熊孩子们【11P大容量】</span></a></p>
+
+<p><span>av62797 </span><a href='../vid/av62797.mp4'><span>【高兴帝风注意】猎奇妹妹控兄记</span></a></p>
+
+<p><span>av87519 </span><a href='https://bilibili.com/video/av53376'><span>[合集]美国圣地亚哥原版广告</span></a></p>
+
+<p><span>  av88885 </span><a href='https://bilibili.com/video/av88885'><span>カルトマンの妖怪熟女</span></a></p><p><span>  </span><span style="color: #C1C1C1">
+
+<p><span>av97952 </span><a href='../vid/av97952.mp4'><span>【东方手书】!!!!!!!!!!!!!!!!!!!!!!</span></a></p>
+
+<p><span>  av123688 </span><a href='https://bilibili.com/video/av123688'><span>最终鬼畜吸氧羊【东方喜洋洋】</span></a></p>
+
+<p><span>  </span><span style="color: #FF0004"><span>av129073 </span><a href='https://bilibili.com/video/av129073'><span>旅立ちの日に</span></a></span></p>
+
+<p><span>  </span><span style="color: #C1C1C1"><span>av129520</span></span><span> </span><span style="color: #C1C1C1"><a href='https://huanmingzhuo.github.io/video/vid/archive/00129520.mp4'><span>sm666 so Happy</span></a></span></p>
+
+<p><span>av161269 </span><a href='../vid/av161269.mp4'><span>【東方獵奇鄉】एलएसडी यात्रा</span></a></p>
+
+<p><span>  av170001 </span><a href='https://bilibili.com/video/av170001'><span>保加利亚妖王HOP</span></a></p>
+
+<p><span>  </span><span style="color: #FE9200"><span> av268364 </span><a href='../vid/av268364.mp4'><span>奈亚子 so happy</span></a></p></span>
+
+<p><span>  av277610 </span><a href='../vid/av277610p1.MP4'><span>总之我也不知道叫什么(p1)</span></a></p>
+
+<p><span>  av277610p2 </span><a href='../vid/av277610p2.mp4'><span>总之我也不知道叫什么(p2)</span></p></a>
+
+<p><span>  av277610p3 </span><a href='../vid/av277610p3.mp4'><span>总之我也不知道叫什么(p3)</span></p></a>
+
+<p><span>av301153 </span><a href='https://bilibili.com/video/av301153'><span>【歌唱河北】夏天到了，元首和大家欢唱《我爱洗澡》</span></a></p>
+
+<p><span>av312650 </span><a href='../vid/av312650.mp4'><span>空城计跟风--暴菊计</span></a></p>
+
+<p><span>av328530 </span><a href='../vid/av328530.mp4'><span>精神猎奇歌曲！精神崩坏曲</span></a></p>
+
+<p><span> </span><span style="color: #FF0004"><span>av423257 </span><a href='../vid/av423257.mp4'><span>Doll</span></a><span></span></p>
+
+<p><span>av461163 </span><a href='../vid/av461163.mp4'><span>兄贵♂本篇</span></a></p>
+
+<p><span>av509491 </span><a href='https://www.bilibili.com/video/av509491/'><span>满足大家族【1本满足X团子大家族】</span></a></p>
+
+<p><span>av513928 </span><a href='https://www.bilibili.com/video/av513928/'><span>【三国杀】【潜行吧！蜀备们！】</span></a></p>
+
+<p><span>av524968 </span><a href='https://www.bilibili.com/video/av524968/'><span>【元首】一笑懸命</span></a></p>
+
+<p><span>av531092 </span><a href='https://www.bilibili.com/video/av531092/'><span>【金坷垃】某科学的超肥料炮S【该来的早来了】</span></a></p>
+
+<span> av535903 </span><a href='../vid/av535903.mp4'><span>奈亚子w so happy</span></a></p>
+
+<p><span>av545132 </span><a href='https://www.bilibili.com/video/av545132/'><span>【元首】潜行吧！元首子W</span></a></p>
+
+<p><span>av563083 </span><a href='../vid/av563083.mp4'><span>新品种的食人鱼</span></a></p>
+
+<p><span>av570210 </span><a href='https://www.bilibili.com/video/av570210/'><span>《生人回避》OP四种</span></a></p>
+
+<p><span>av588247 </span><a href='.https://www.bilibili.com/video/av588247/'><span>高能，心脏病者速速撤离，口袋妖怪“死亡之音”紫苑镇BGM倒放版，这个更带感~</span></a></p>
+
+<p><span>av603995 </span><a href='../vid/av603995.mp4'><span>[东方旧日统治者]孕腹飞翔 ~ Lunamoto Moo</span></a></p>
+
+<p><span>av622679 </span><a href='../vid/av622679.mp4'><span>test.sfk 胡萝卜hrhr</span></a></p>
+
+<p><span>av625991 </span><a href='https://www.bilibili.com/video/av625991/'><span>【毫无鬼畜】油腻的师姐在哪里？</span></a></p>
+
+<p><span>av632142 </span><a href='https://www.bilibili.com/video/av632142/'><span>【飞机君】吃狗粮so happy</span></a></p>
+
+<p><span>av731941 </span><a href='https://www.bilibili.com/video/av731941/'><span>【地铁音MAD】迈皋zone（南京地铁+上海地铁等）</span></a></p>
+
+<p><span>  av882708 </span><a href='../vid/av882708.mp4'><span>章鱼哥自杀</span></a></span></p>
+
+<p><span>av954563 </span><a href='../vid/av954563.mp4'><span>Squidward\'s Suicide Original 章鱼哥自杀 原版</span></a></p>
+
+<p><span>av1337495 </span><a href='../vid/av1337495.mp4'><span>【创价学会】柴田理惠原版素材</span></a></p>
+
+<p><span>  av1345966 </span><a href='../vid/av1345966.mp4'><span>蓝蓝路广告恶搞版</span></a></p>
+
+<p><span>av1522050 </span><a href='https://www.bilibili.com/video/av1522050/'><span>大力哥原版采访 /万万没想到</span></a></p>
+
+<p><span>av1593037</span><a href='../vid/av1593037.mp4'><span>最终猎奇蓝蓝路</span></a></p>
+
+<p><span>av1594039 </span><a href='https://www.bilibili.com/video/av1594039/'><span>烧红镍球放入失恋男子</span></a></p>
+
+<p><span>av1979757 </span><a href='../vid/av1979757.flv'><span>退教神器</span></a></p>
+
+<p><span>av2856521 </span><a href='https://www.bilibili.com/video/av2856271/'><span>【诸葛琴魔】紫苑镇的超·精神污染琴魔</span></a></p>
+
+<p><span>av2868125 </span><a href='../vid/av2868125.mp4'><span>【B站最终高等精神污染】猎奇的聒噪之音 和谐版（耳机党福利）</span></a></p>
+
+<p><span>av3720705 </span><a href='../vid/av3720705.mp4'><span>喝了 VS 学园生活部 VS SM666 VS 影云龙 精污对决 Bad Apple</span></a></p>
+
+<p><span>av4028856 </span><a href='../vid/av4028856.mp4'><span>博丽灵梦的自杀</span></a></p>
+
+<p><span>av4033926 </span><a href='https://www.bilibili.com/video/av4033926/'><span>【电音单曲】我是papi酱</span></a></p>
+
+<p><span>av4622995 </span><a href='../vid/av4622995.mp4'><span>精污战队 VS NEO军团 高精对决 Bad Apple!!</span></a></p>
+
+<p><span>av18929311 </span><a href='https://www.bilibili.com/video/av18929311/'><span>柴田の365個擬音語世界</span></a></p>
+
+<p><span> </span><span style="color: #C1C1C1"><span>av142780</span></span><span> </span><a href='../vid/av142780.mp4'><span>【猎奇注意】阿卡林怒了</span></a></p>
+
+<p><span>av928697 </span><a href='../vid/av928697.mp4'><span>【全程诡异】黑暗米老鼠</span></a></p>
+
+
+<p> </span><span>av11417</span></span><span> </span><a href='../vid/av11417.mp4'><span>【烂头部】Bad Atama!!</span></a> </span></p>
+
+<p><span>av126692</span><a href='../vid/av126692.mp4'><span>奔跑吧灯里酱</span></a> </p>
+
+
+
+<p><span>  </span><span style="color: #FF0004"><span>av122706 </span><a href='../vid/av122706.mp4'><span>【摇曳百合】灯里你肿么啦</span></a></span></p>
+
+<p><span>  </span><span style="color: #FF0004"><span>av318047 </span><a href='../vid/av318047.mp4'><span> 【超治愈】阿卡林消失之后♪♪ </span></a></span></p>
+
+
+
+<p><span>  </span><span style="color: #C1C1C1"><span>av42325</span></span><span> </span><span style="color: #C1C1C1"><a href='../vid/av42325.mp4'><span>小丑的假声-Naget Bird</span></a></span></p>
+
+<p><span>  </span><span style="color: #C1C1C1"><span>av86497</span></span><span> </span><span style="color: #C1C1C1"><a href='../vid/av86497.mp4'><span>银河最强的小丑</span></a></span></p>
+
+<p><span>  </span><span style="color: #FF0004"><span>av73927320 </span><a href='../vid/av73927320.mp4'><span>啊↑叭↓叭→叭→叭↓叭↑叭↓叭↓叭↑叭→叭→</span></a></span></p>
+
+
+<p><span> av454033 </span><a href='../vid/av454033.MP4'>月亮信仰【高精注意】<span></span></a> </p>
+
+<p><span>  av2799535</span><a href='https://www.bilibili.com/video/av2799535'><span>危险的警署</span></a> </p>
+
+
+
+<p><span> av459582 </span><a href='../vid/av459582.mp4'><span>無題</span></a></p>
+
+
+
+<p><span>  av1216934 </span><a href='../vid/av1216934.mp4'><span>紫苑镇死亡音乐高质立体声</span></a></p>
+
+
+
+
+
+<p><span>  av2008644 </span><a href='../vid/av2008644.mp4'><span>hrhr so happy</span></a></p>
+
+ 
+
+<p><span>  av860481 </span><a href='../vid/av860481.mp4'><span>厂长 so Happy -EX mix-</span></a></span></p>
+
+<p><span>  </span><span style="color: #FF0004"><span>av10198539 </span><a href='../vid/av10198539.mp4'><span>香蕉君热舞(维护中)</span></a></p>
+
+<p><span>av11009508 </span><a href='../vid/av11009508.mp4'><span>蕉忍♂疾风传</span></a><span></span></p>
+
+<span style="color: #C1C1C1">av344843610 <a href="https://cbu3.github.io/vid/archive/344843610.mp4">希望与梦想的土地</a></span><br />
+
+<p><strong><span>ニコニコ危険地帯</span></strong></p>
+
+<p><span>sm24338276 </span><a href='../vid/sm24338276.mp4'><span>【Bad Apple!!】Bad Kensaku!!【検索してはいけない言葉】</span></a></p>
+
+<p><strong><span>YouTube危險地帶</span></strong></p>
+
+<p><span style="color: #C1C1C1">---我是一条分割线，看见我就说明你已逃离危险地带---</span></p>
+
+<p><strong><span>音mad</span></strong></p>
+
+<span>av344843610 <a href="../vid/archive/344843610.mp4">希望与梦想的土地</a></span><br /></blockquote>
+
+<p><span>20210902 </span><a href='../vid/1.mp4'><span>测试用</span></a></p><p><span>20210718 压缩为</span><a href='../vid/非常抱歉_1080pFHR.mp4'><span>20kb/s</span></a></p><p><span>20180724 摘选考古链</span>&nbsp;<span>内有改动</span></p><p style="text-align: center">本站更新日志
+
+</p><p style="text-align: left">作者的b站主页<a href="https://m.bilibili.com/space/1752270875/">我只是路过的呀</a></p><p><span>友链: </span><a href='https://www.rtsbox.cn/'><span>末忆-铁锈盒子</span></a></p><p><a href='../link.html'><span>类似视频站点合集</span></a></p></p><p><span>过时友链: </span><a href='https://sykeb.github.io'><span>猎奇导航站(寄了)</span></a></p><p><a href='https://www.rustedwarfare.com/'><span>铁锈中文网(也寄了)</span></a></p></p>
 
         <center style="margin-top:30px;">
-            <img src="../pic/luguo.jpg" style="width: 100px;"><br>
-            <a href="donate.html"><img src="../pic/donate.JPG" style="width: 140px; margin-top:10px;"></a>
+            <img src="../pic/luguo.jpg" class="footer-img-luguo"><br>
+            <a href="donate.html"><img src="../pic/donate.JPG" class="footer-img-donate"></a>
             <div style="margin-top: 20px; padding: 10px; border-top: 1px dashed var(--border-color);">
                 <p>正在浏览该网站的人：<span class="rainbow-text">棍母</span></p>
             </div>
