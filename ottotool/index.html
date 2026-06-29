@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OttoHub 弹幕转换器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f1f5f9;
+            -webkit-tap-highlight-color: transparent;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
+
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-300">
+        
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-center text-white">
+            <h1 class="text-xl sm:text-2xl font-bold tracking-tight">OttoHub 多功能工具箱</h1>
+            <p class="text-xs text-blue-100 mt-1.5 opacity-90">视频与弹幕下载</p>
+        </div>
+
+        <div class="px-5 pt-4">
+            <div id="msg-box" class="hidden p-3.5 rounded-xl text-xs sm:text-sm leading-relaxed"></div>
+        </div>
+
+        <div class="px-5 pt-4">
+            <div id="download-zone" class="hidden p-4 bg-emerald-50 border border-emerald-100 rounded-xl text-center space-y-3">
+                <p id="download-tips" class="text-emerald-800 text-xs sm:text-sm font-semibold">🎉 转换/获取成功！</p>
+                <div class="flex flex-col gap-2">
+                    <a id="backup-download-btn" target="_blank" class="w-full inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-medium py-2.5 px-6 rounded-xl shadow-sm text-sm transition-all">
+                        点击/长按下载文件
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-5 sm:p-6 space-y-5">
+            
+            <div class="bg-blue-50/40 p-4 rounded-xl border border-blue-100/70 space-y-3">
+                <label for="ov_number" class="block text-xs sm:text-sm font-bold text-blue-900">
+                    一键云端获取 (输入纯数字 OV 号)
+                </label>
+                <input type="number" id="ov_number" pattern="[0-8]*" inputmode="numeric" placeholder="例如: 295639" 
+                       class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all bg-white font-medium text-gray-800 placeholder-gray-400 shadow-sm">
+                
+                <div class="grid grid-cols-2 gap-2.5 pt-1">
+                    <button id="btn-fetch-danmaku" class="bg-blue-600 hover:bg-blue-700 active:scale-[0.97] text-white font-semibold py-3 px-3 rounded-xl shadow-sm transition-all text-xs sm:text-sm text-center truncate">
+                        获取单行弹幕
+                    </button>
+                    <button id="btn-fetch-video" class="bg-indigo-600 hover:bg-indigo-700 active:scale-[0.97] text-white font-semibold py-3 px-3 rounded-xl shadow-sm transition-all text-xs sm:text-sm text-center truncate">
+                        获取原画视频
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative flex items-center py-1">
+                <div class="flex-grow border-t border-gray-200"></div>
+                <span class="flex-shrink mx-4 text-gray-400 text-xs font-medium">或者转换本地文件</span>
+                <div class="flex-grow border-t border-gray-200"></div>
+            </div>
+
+            <div class="space-y-3">
+                <label class="block text-xs sm:text-sm font-semibold text-gray-700">
+                    选择本地 JSON 弹幕文件
+                </label>
+                <div class="relative group">
+                    <input type="file" id="json_file" accept=".json" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                    <div id="drop-zone" class="border-2 border-dashed border-gray-300 group-hover:border-blue-500 rounded-xl p-5 text-center transition-colors bg-gray-50 group-hover:bg-blue-50/20">
+                        <svg class="w-7 h-7 mx-auto text-gray-400 group-hover:text-blue-500 mb-1.5 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span id="file-name" class="text-xs sm:text-sm text-gray-500 block truncate font-medium group-hover:text-blue-600">
+                            点击此处选择或拖入 .json 文件
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="convert-btn" class="w-full bg-gray-800 hover:bg-gray-900 active:scale-[0.99] text-white font-semibold py-3 px-4 rounded-xl shadow transition-all text-sm sm:text-base tracking-wide">
+                开始转换本地文件
+            </button>
+        </div>
+
+        <div class="bg-gray-50/80 px-6 py-3.5 border-t border-gray-100 text-center">
+            <span class="text-[11px] text-gray-400 font-mono tracking-wider">Device Stream Adaptive Toolkit</span>
+        </div>
+    </div>
+
+    <script>
+        const ovInput = document.getElementById('ov_number');
+        const btnFetchDanmaku = document.getElementById('btn-fetch-danmaku');
+        const btnFetchVideo = document.getElementById('btn-fetch-video');
+        
+        const fileInput = document.getElementById('json_file');
+        const fileNameDisplay = document.getElementById('file-name');
+        const dropZone = document.getElementById('drop-zone');
+        const convertBtn = document.getElementById('convert-btn');
+        
+        const msgBox = document.getElementById('msg-box');
+        const downloadZone = document.getElementById('download-zone');
+        const downloadTips = document.getElementById('download-tips');
+        const backupDownloadBtn = document.getElementById('backup-download-btn');
+
+        let targetFile = null;
+        let outputName = "bilibili_danmaku.xml";
+
+        function showMsg(text, type = 'info') {
+            if (!text) { msgBox.className = 'hidden'; return; }
+            const isError = type === 'error';
+            msgBox.className = `p-3.5 rounded-xl text-xs sm:text-sm font-medium ${isError ? 'bg-rose-50 text-rose-600 border border-rose-100' : 'bg-blue-50 text-blue-600 border border-blue-100 animate-pulse'}`;
+            msgBox.textContent = text;
+        }
+
+        // 状态清除和互斥
+        ovInput.addEventListener('input', function() {
+            if(this.value.trim() !== '') {
+                targetFile = null; fileInput.value = "";
+                fileNameDisplay.textContent = "点击此处选择或拖入 .json 文件";
+                fileNameDisplay.className = "text-xs sm:text-sm text-gray-500 block truncate font-medium";
+                dropZone.className = "border-2 border-dashed border-gray-300 rounded-xl p-5 text-center transition-colors bg-gray-50";
+            }
+        });
+
+        fileInput.addEventListener('change', function(e) {
+            showMsg(''); downloadZone.classList.add('hidden'); ovInput.value = "";
+            targetFile = e.target.files[0];
+            if (targetFile) {
+                fileNameDisplay.textContent = "已就绪: " + targetFile.name;
+                fileNameDisplay.className = "text-xs sm:text-sm text-blue-600 block truncate font-semibold";
+                dropZone.className = "border-2 border-dashed border-blue-400 rounded-xl p-5 text-center transition-colors bg-blue-50/30";
+                outputName = targetFile.name.replace(/\.json$/i, '') + '_bilibili.xml';
+            }
+        });
+
+        const xmlEntities = { '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' };
+        function escapeXml(unsafe) { return unsafe.replace(/[<>&'"]/g, c => xmlEntities[c]); }
+
+        // ====== 功能一：通过 OV 号获取云端弹幕并转换 ======
+        btnFetchDanmaku.addEventListener('click', function() {
+            const ovVal = ovInput.value.trim();
+            if(!ovVal) { showMsg('请输入有效的纯数字 OV 号！', 'error'); return; }
+            
+            showMsg(`正在为您同步云端 OV${ovVal} 弹幕数据...`, 'info');
+            downloadZone.classList.add('hidden');
+            outputName = `OV${ovVal}_bilibili_danmaku.xml`;
+
+            fetch(`https://api.ottohub.cn/api/danmaku/${ovVal}`)
+                .then(res => {
+                    if (!res.ok) throw new Error(`云端服务暂不可用 (Code: ${res.status})`);
+                    return res.text();
+                })
+                .then(rawText => {
+                    setTimeout(() => { processJsonText(rawText); }, 50);
+                })
+                .catch(err => {
+                    showMsg(`弹幕拉取失败！可能此视频无数据，或浏览器受到跨域限制(CORS)。您可以将 JSON 下载后从下方导入转换。`, 'error');
+                });
+        });
+
+        // ====== 功能二：通过 OV 号获取云端视频下载地址（新增功能） ======
+        btnFetchVideo.addEventListener('click', function() {
+            const ovVal = ovInput.value.trim();
+            if(!ovVal) { showMsg('请输入有效的纯数字 OV 号！', 'error'); return; }
+            
+            showMsg(`正在为您解析 OV${ovVal} 的视频下载地址...`, 'info');
+            downloadZone.classList.add('hidden');
+
+            fetch(`https://api.ottohub.cn/api/video/${ovVal}`)
+                .then(res => {
+                    if (!res.ok) throw new Error(`云端接口响应异常 (Code: ${res.status})`);
+                    return res.json();
+                })
+                .then(jsonResult => {
+                    // 根据标准 API 规范，依次猜测探测视频播放地址字段
+                    let videoUrl = "";
+                    if(jsonResult.data) {
+                        videoUrl = jsonResult.data.url || jsonResult.data.play_url || jsonResult.data.video_url || jsonResult.data.file_url;
+                    } else {
+                        videoUrl = jsonResult.url || jsonResult.play_url;
+                    }
+
+                    if (!videoUrl) {
+                        throw new Error("成功拿到视频详情，但在返回的数据包里没有解析出有效视频下载链接字段。");
+                    }
+
+                    showMsg('');
+                    downloadTips.textContent = `🎉 成功解析出 OV${ovVal} 视频链接！`;
+                    
+                    // 绑定到兜底绿色按钮（在手机端长按可以完美保存视频，电脑端点击直达下载）
+                    backupDownloadBtn.href = videoUrl;
+                    backupDownloadBtn.download = `OV${ovVal}_video.mp4`;
+                    downloadZone.classList.remove('hidden');
+
+                    // 自动尝试触发下载唤起机制
+                    const aLink = document.createElement("a");
+                    aLink.href = videoUrl;
+                    aLink.download = `OV${ovVal}_video.mp4`;
+                    aLink.style.display = 'none';
+                    document.body.appendChild(aLink);
+                    aLink.click();
+                    document.body.removeChild(aLink);
+                })
+                .catch(err => {
+                    showMsg(`视频链接获取失败！原因为: ${err.message}。如果触发了浏览器的跨域拦截，可以使用第三方代理或在本地配置 cURL 执行。`, 'error');
+                });
+        });
+
+        // ====== 功能三：转换本地导入的文件 ======
+        convertBtn.addEventListener('click', function() {
+            showMsg(''); downloadZone.classList.add('hidden');
+            if (!targetFile) {
+                showMsg('当前未检测到任何本地 JSON 文件，请先进行选择。', 'error');
+                return;
+            }
+            showMsg('正在提取并解析本地文件数据...', 'info');
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                setTimeout(() => { processJsonText(evt.target.result); }, 50);
+            };
+            reader.readAsText(targetFile, "UTF-8");
+        });
+
+        // ====== 高性能核心流处理器 ======
+        function processJsonText(rawText) {
+            try {
+                const jsonObj = JSON.parse(rawText);
+                if (!jsonObj || !jsonObj.data || !Array.isArray(jsonObj.data)) {
+                    throw new Error('JSON 解析完毕，但未发现标准弹幕 "data" 队列。');
+                }
+
+                const modeMap = {'scroll': '1', 'bottom': '4', 'top': '5'};
+                const xmlChunks = [];
+                
+                xmlChunks.push('<?xml version="1.0" encoding="UTF-8"?><i><chatserver>chat.bilibili.com</chatserver><chatid>1781922480397</chatid><mission>0</mission><maxlimit>1500</maxlimit><state>0</state><real_name>0</real_name><source>DF</source>');
+
+                const list = jsonObj.data;
+                const len = list.length;
+
+                for (let i = 0; i < len; i++) {
+                    const item = list[i];
+                    let timePos = item.time !== undefined ? String(item.time) : '0';
+                    let mode = modeMap[item.mode] || '1';
+                    let fontSize = item.font_size ? String(item.font_size).replace('px', '') : '25';
+                    
+                    let colorHex = item.color ? item.color.replace('#', '') : 'ffffff';
+                    let colorDec = colorHex !== '' ? String(parseInt(colorHex, 16)) : '16777215';
+                    if (isNaN(colorDec)) colorDec = '16777215';
+
+                    let timestamp = '1718854500';
+                    let pool = '0';
+                    let userId = '0';
+                    let danmakuId = item.danmaku_id !== undefined ? String(item.danmaku_id) : '0';
+
+                    let pAttr = `${timePos},${mode},${fontSize},${colorDec},${timestamp},${pool},${userId},${danmakuId}`;
+                    let text = escapeXml(item.text || '');
+
+                    xmlChunks.push(`<d p="${pAttr}">${text}</d>`);
+                }
+                xmlChunks.push('</i>');
+
+                const blob = new Blob(xmlChunks, { type: 'application/xml;charset=utf-8;' });
+                const blobUrl = URL.createObjectURL(blob);
+
+                downloadTips.textContent = "🎉 弹幕转换成功！";
+                backupDownloadBtn.href = blobUrl;
+                backupDownloadBtn.download = outputName;
+                downloadZone.classList.remove('hidden');
+                showMsg('');
+
+                const link = document.createElement("a");
+                link.href = blobUrl;
+                link.download = outputName;
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+            } catch (e) {
+                showMsg('错误: ' + e.message, 'error');
+            }
+        }
+    </script>
+</body>
+</html>
